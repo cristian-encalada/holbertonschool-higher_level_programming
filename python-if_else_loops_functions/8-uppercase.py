@@ -4,9 +4,8 @@ def islower(c):
 
 
 def uppercase(str):
-    converted = ""
     for c in str:
         if islower(c):
-            c = chr(ord(c) + ord('A') - ord('a'))
-        converted += c
-    print(converted)
+            c = chr(ord(c) - 32)
+        print(c, end='')
+    print()
