@@ -4,7 +4,7 @@ def magic_calculation(a, b):
     for i in range(1, 3):
         try:
             if i > a:
-                Exception('too far')
+                raise Exception('too far')
             result = a ** b
             result += i
         except Exception:
