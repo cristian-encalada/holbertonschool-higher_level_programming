@@ -177,7 +177,7 @@ guillaume@ubuntu:~/$
 ```
 File: [5-number_keys.py](./5-number_keys.py)
 
-###6. Print sorted dictionary
+### 6. Print sorted dictionary
 
 Write a function that prints a dictionary by ordered keys.
 
