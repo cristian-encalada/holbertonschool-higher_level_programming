@@ -81,7 +81,8 @@ class Square:
             print()
         else:
             for newLine in range(self.__position[1]):
-                print()
+                if self.__position >= 0:
+                    print()
             """Print the square line by line"""
             for column in range(self.__size):
                 for space in range(self.__position[0]):
