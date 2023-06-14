@@ -79,11 +79,10 @@ class Square:
         """Print in stdout a square with the character #"""
         if self.__size == 0:
             print()
-
         else:
             for _ in range(self.__position[1]):
-                print()
-
+                if self.__position[1] >= 0:
+                    print()
             line = ' ' * self.__position[0] + '#' * self.__size
             """Print the square line by line"""
             for _ in range(self.__size):
