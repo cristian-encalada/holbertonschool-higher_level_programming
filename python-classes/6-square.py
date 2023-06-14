@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-''' Task 6. Coordinates of a square
+""" Task 6. Coordinates of a square
 
     Requirements:
     ------------
@@ -27,24 +27,24 @@
             - position should be use by using space
             - Don't fill lines by spaces when position[1] > 0
     - Is not allowed to import any module
-'''
+"""
 
 
 class Square:
-    'Define a square'
+    """Define a square"""
     def __init__(self, size=0, position=(0, 0)):
-        'Initialize the data'
+        """Initialize the data"""
         self.__size = size
         self.__position = position
 
     @property
     def size(self):
-        'Getter method to retrieve the value of size'
+        """Getter method to retrieve the value of size"""
         return self.__size
 
     @size.setter
     def size(self, value):
-        'Setter method to set the value of size'
+        """Setter method to set the value of size"""
         if type(value) is not int:
             raise TypeError('size must be an integer')
         elif value < 0:
@@ -54,12 +54,12 @@ class Square:
 
     @property
     def position(self):
-        'Getter method to retrieve the value of position'
+        """Getter method to retrieve the value of position"""
         return self.__position
 
     @position.setter
     def position(self, value):
-        'Setter method to set the value of position'
+        """Setter method to set the value of position"""
         if type(value) is not tuple:
             raise TypeError("position must be a tuple of 2 positive integers")
         elif len(value) != 2:
@@ -72,18 +72,19 @@ class Square:
             self.__position = value
 
     def area(self):
-        'Calculate the area of the square'
+        """Calculate the area of the square"""
         return self.__size**2
 
     def my_print(self):
-        'Print in stdout a square with the character #'
+        """Print in stdout a square with the character #"""
         if self.__size == 0:
             print()
 
-        for _ in range(self.__position[1]):
-            print()
+        else:
+            for _ in range(self.__position[1]):
+                print()
 
-        line = ' ' * self.__position[0] + '#' * self.__size
-        'Print the square line by line'
-        for _ in range(self.__size):
-            print(line)
+            line = ' ' * self.__position[0] + '#' * self.__size
+            """Print the square line by line"""
+            for _ in range(self.__size):
+                print(line)
