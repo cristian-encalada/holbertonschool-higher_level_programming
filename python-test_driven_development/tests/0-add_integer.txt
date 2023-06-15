@@ -24,12 +24,12 @@ Functional Cases:
 	>>> add_integer(101.3, -2)
 	99
 
-5. Input string type to b:
+5. TypeError - b = str:
 	>>> add_integer(4, "School")
 	Traceback (most recent call last):
 	TypeError: b must be an integer
 
-6. Input string type to a:
+6. TypeError - a = str:
 	>>> add_integer("School", 5)
 	Traceback (most recent call last):
 	TypeError: a must be an integer
@@ -46,15 +46,20 @@ Edge Cases:
     >>> add_integer(10, 0)
     10
 
-9. No agruments:
+9. TypeError - No agruments:
 	>>> add_integer()
 	Traceback (most recent call last):
 	TypeError: add_integer() missing 1 required positional argument: 'a'
 
-9. Positive and negatve infinity:
-	>>> add_integer(float('inf'), 15)
+9. OverflowError - Infinity:
+	>>> add_integer(float('inf'))
 	Traceback (most recent call last):
 	OverflowError: cannot convert float infinity to integer
-	>>> add_integer(20, float('-inf'))
+	>>> add_integer(float('-inf'))
 	Traceback (most recent call last):
 	OverflowError: cannot convert float infinity to integer
+
+10. ValueError - NaN:
+	>>> add_integer(float('NaN'))
+	Traceback (most recent call last):
+	ValueError: cannot convert float NaN to integer
