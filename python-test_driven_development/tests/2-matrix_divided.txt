@@ -58,7 +58,7 @@ Edge Cases:
 6. NameError - div is not defined:
 	>>> matrix = [
 	...	[1, 2, 3],
-	...	[4, 5, hello]
+	...	[4, 5, 6]
 	... ]
 	>>> matrix_divided(matrix, hello)
 	Traceback (most recent call last):
@@ -90,3 +90,13 @@ Edge Cases:
 	>>> matrix_divided(5, 3)
 	Traceback (most recent call last):
 	TypeError: 'int' object is not iterable
+
+10. TypeError - missing matrix:
+	>>> matrix = [
+	...	[1, 2, 3],
+	...	[4, 5, 6]
+	... ]
+	>>> matrix_divided(, 3)
+	Traceback (most recent call last):
+	SyntaxError: invalid syntax
+
