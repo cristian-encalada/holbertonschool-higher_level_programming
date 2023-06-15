@@ -9,3 +9,15 @@ Using ``add_integer``
 Positive integers:
 	>>> add_integer(1, 2)
 	3
+
+Negative number:
+	>>> add_integer(100, -2)
+	98
+
+Only one argument:
+	>>> add_integer(5)
+	103
+
+Float argument:
+	>>> add_integer(101.3, -2)
+	99
