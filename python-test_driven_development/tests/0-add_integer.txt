@@ -29,7 +29,24 @@ Functional Cases:
 	Traceback (most recent call last):
 	TypeError: b must be an integer
 
-6. Input string type to 4:
+6. Input string type to a:
 	>>> add_integer("School", 5)
 	Traceback (most recent call last):
 	TypeError: a must be an integer
+
+Edge Cases:
+----------
+7. Zero as both arguments:
+    >>> add_integer(0, 0)
+    0
+
+8. Zero as one argument:
+    >>> add_integer(0, 5)
+    5
+    >>> add_integer(10, 0)
+    10
+
+9. No agruments:
+	>>> add_integer()
+	Traceback (most recent call last):
+	TypeError: add_integer() missing 1 required positional argument: 'a'
