@@ -50,3 +50,11 @@ Edge Cases:
 	>>> add_integer()
 	Traceback (most recent call last):
 	TypeError: add_integer() missing 1 required positional argument: 'a'
+
+9. Positive and negatve infinity:
+	>>> add_integer(float('inf'), 15)
+	Traceback (most recent call last):
+	OverflowError: cannot convert float infinity to integer
+	>>> add_integer(20, float('-inf'))
+	Traceback (most recent call last):
+	OverflowError: cannot convert float infinity to integer

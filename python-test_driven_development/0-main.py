@@ -19,4 +19,11 @@ try:
     print(add_integer())
 except Exception as e:
     print(e)
-
+try:
+    print(add_integer(float('inf')), 5)
+except Exception as e:
+    print(e)
+try:
+    print(add_integer(8, float('inf')))
+except Exception as e:
+    print(e)
