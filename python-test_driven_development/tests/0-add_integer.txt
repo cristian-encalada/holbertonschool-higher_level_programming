@@ -2,22 +2,34 @@ The ``0-add_integer'' module
 ============================
 
 Using ``add_integer``
----------------------
+--------------------
 
 	>>> add_integer = __import__('0-add_integer').add_integer
 
-Positive integers:
+Functional Cases:
+----------------
+1. Basic addition:
 	>>> add_integer(1, 2)
 	3
 
-Negative number:
+2. Negative number:
 	>>> add_integer(100, -2)
 	98
 
-Only one argument:
+3. Only one argument:
 	>>> add_integer(5)
 	103
 
-Float argument:
+4. Float argument (conversion to integer):
 	>>> add_integer(101.3, -2)
 	99
+
+5. Input string type to b:
+	>>> add_integer(4, "School")
+	Traceback (most recent call last):
+	TypeError: b must be an integer
+
+6. Input string type to 4:
+	>>> add_integer("School", 5)
+	Traceback (most recent call last):
+	TypeError: a must be an integer
