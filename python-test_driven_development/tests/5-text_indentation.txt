@@ -55,12 +55,10 @@ Functional Cases:
     >>> text_indentation("Lorem ipsum dolor sit amet, consectetur adipiscing elit?")
     Lorem ipsum dolor sit amet, consectetur adipiscing elit?
     <BLANKLINE>
-    <BLANKLINE>
 
 4. Delimiter at the beginnning:
     >>> text_indentation("?")
     ?
-    <BLANKLINE>
     <BLANKLINE>
 
 5. String without delimiters:
@@ -93,5 +91,4 @@ Edge Cases:
     ?
     <BLANKLINE>
     :
-    <BLANKLINE>
     <BLANKLINE>
