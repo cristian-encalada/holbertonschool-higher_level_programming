@@ -12,18 +12,13 @@ def text_indentation(text):
         raise TypeError('text must be a string')
 
     delimiters = {'.', '?', ':'}
-    result = ''
-    skip_space = True
+    i = 0
 
-    for char in text:
-        if char == ' ' and skip_space:
-            continue
-
-        result += char
-        skip_space = False
-
-        if char in delimiters:
-            result += '\n\n'
-            skip_space = True
-
-    print(result)
+    while i < len(text):
+        if text[i] in delimiters:
+            print(f"{text[i]}\n\n", end="")
+            i += 1
+            while i < len(text) and text[i] == " ":
+                i += 1
+        print(f"{text[i]}", end="")
+        i += 1
