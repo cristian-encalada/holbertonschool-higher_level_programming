@@ -63,16 +63,25 @@ Functional Cases:
     <BLANKLINE>
     <BLANKLINE>
 
+5. String without delimiters:
+    >>> text_indentation("Hello World")
+    Hello World
+
 Edge Cases:
 ----------
 
-5. TypeError - No arguments:
+6. TypeError - No arguments:
     >>> text_indentation()
     Traceback (most recent call last):
     TypeError: text_indentation() missing 1 required positional argument: 'text'
 
 
-6. TypeError - More than 1 argument:
+7. TypeError - More than 1 argument:
     >>> text_indentation("hello", "world")
     Traceback (most recent call last):
     TypeError: text_indentation() takes 1 positional argument but 2 were given
+
+8. NameError - name is not defined:
+    >>> text_indentation(test)
+    Traceback (most recent call last):
+    NameError: name 'test' is not defined
