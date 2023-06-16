@@ -16,9 +16,9 @@ def text_indentation(text):
 
     while i < len(text):
         if text[i] in delimiters:
-            print(f"{text[i]}\n\n", end="")
+            print(text[i] + "\n\n", end="")
             i += 1
             while i < len(text) and text[i] == " ":
                 i += 1
-        print(f"{text[i]}", end="")
+        print(text[i], end="")
         i += 1
