@@ -85,3 +85,13 @@ Edge Cases:
     >>> text_indentation(test)
     Traceback (most recent call last):
     NameError: name 'test' is not defined
+
+9. String with just delimiters:
+    >>> text_indentation(".?:")
+    .
+    <BLANKLINE>
+    ?
+    <BLANKLINE>
+    :
+    <BLANKLINE>
+    <BLANKLINE>
