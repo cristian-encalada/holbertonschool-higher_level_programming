@@ -7,8 +7,8 @@ class Rectangle:
     """Defines a rectangle"""
     def __init__(self, width=0, height=0):
         """Initialize the Rectangle object data"""
-        self.__width = width
-        self.__height = height
+        self.width = width
+        self.height = height
 
     """Getter methods to retreve the value"""
 
@@ -29,7 +29,7 @@ class Rectangle:
         """Setter method of width"""
         if not isinstance(value, int):
             raise TypeError("width must be an integer")
-        elif value < 0:
+        if value < 0:
             raise ValueError("width must be >= 0")
         else:
             self.__width = value
@@ -39,7 +39,7 @@ class Rectangle:
         """Setter method of height"""
         if not isinstance(value, int):
             raise TypeError("height must be an integer")
-        elif value < 0:
+        if value < 0:
             raise ValueError("height must be >= 0")
         else:
             self.__height = value
