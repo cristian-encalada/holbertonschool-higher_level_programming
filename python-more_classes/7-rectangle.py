@@ -7,7 +7,7 @@ class Rectangle:
     """Defines a rectangle
     """
     number_of_instances = 0
-    print_simbol = "#"
+    print_symbol = '#'
 
     def __init__(self, width=0, height=0):
         """Initialize the Rectangle object data
@@ -81,7 +81,7 @@ class Rectangle:
         else:
             for i in range(self.__height):
                 for j in range(self.__width):
-                    s += self.print_simbol
+                    s += str(self.print_symbol)
                 if i != self.__height - 1:
                     s += '\n'
         return s
