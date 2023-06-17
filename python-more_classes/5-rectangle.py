@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Task 4. Eval is magic
+"""Task . Detect instance deletion
 """
 
 
@@ -85,3 +85,8 @@ class Rectangle:
         """Return a string representation of the rectangle
         """
         return f"Rectangle({self.__width}, {self.__height})"
+
+    def __del__(self):
+        """Print a message when an instance of Rectangle is deleted
+        """
+        print("Bye rectangle...")
