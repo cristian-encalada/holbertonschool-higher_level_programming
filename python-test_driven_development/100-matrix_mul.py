@@ -24,10 +24,10 @@ def matrix_mul(m_a, m_b):
         raise TypeError("m_a should contain only integers or floats")
     if any(not all(isinstance(n, (int, float)) for n in row) for row in m_b):
         raise TypeError("m_b should contain only integers or floats")
-    if any(len(row) != len(m_a[0]) for row in m_a) or \
-            any(len(row) != len(m_b[0]) for row in m_b):
-        raise ValueError("each row of m_a must be of the same size or \
-            each row of m_b must be of the same size")
+    if any(len(row) != len(m_a[0]) for row in m_a):
+        raise ValueError("each row of m_a must be of the same size")
+    if any(len(row) != len(m_b[0]) for row in m_b):
+        raise ValueError("each row of m_b must be of the same size")
 
     rows_a = len(m_a)
     cols_a = len(m_a[0])
