@@ -50,3 +50,11 @@ class SinglyLinkedList:
                 current = current.next_node
             new_node.next_node = current.next_node
             current.next_node = new_node
+
+    def __str__(self):
+        current = self.head
+        linked_list_str = ""
+        while current is not None:
+            linked_list_str += str(current.data) + "\n"
+            current = current.next_node
+        return linked_list_str.rstrip()
