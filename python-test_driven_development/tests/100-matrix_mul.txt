@@ -1,0 +1,37 @@
+The ''100-matrix_mul'' module
+============================
+
+Using ''matrix_mul''
+--------------------
+
+    >>> matrix_mul = __import__('100-matrix_mul').matrix_mul
+
+Functional Cases:
+----------------
+1. Basic division:
+        >>> matrix_a = [
+        ...	[1, 2],
+        ...	[3, 4]
+        ... ]
+        >>> matrix_b = [
+        ...	[1, 2],
+        ...	[3, 4]
+        ... ]
+        >>> print(matrix_mul(matrix_a, matrix_b))
+        [[7, 10], [15, 22]]
+
+Edge Cases:
+----------
+
+6. NameError - div is not defined:
+    >>> matrix_a = [
+    ...	[1, 2],
+    ...	[3, 4]
+    ... ]
+    >>> matrix_b = [
+    ...	[1, 2],
+    ...	[3, 4]
+    ... ]
+    >>> print(matrix_mul([[1, 2], [3, 4]], hello))
+    Traceback (most recent call last):
+    NameError: name 'hello' is not defined
