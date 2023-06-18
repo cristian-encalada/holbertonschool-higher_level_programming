@@ -66,16 +66,16 @@ class Square:
                 print(" " * self.__position[0] + "#" * self.__size)
 
     def __str__(self):
-        """Print in stdout a square with the character #
+        """Same behavior as my_print()
         """
-        square_str = ""
+        sq_str = ""
         if self.__size == 0:
-            square_str += "\n"
+            sq_str += "\n"
         else:
             for _ in range(self.__position[1]):
-                square_str += "\n"
+                sq_str += "\n"
 
             for _ in range(self.__size):
-                square_str += " " * self.__position[0] + "#" * self.__size + "\n"
+                sq_str += " " * self.__position[0] + "#" * self.__size + "\n"
 
-        return square_str.strip()
+        return sq_str.rstrip()
