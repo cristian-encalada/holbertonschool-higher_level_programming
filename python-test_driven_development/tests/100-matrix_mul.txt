@@ -20,7 +20,7 @@ Functional Cases:
     >>> print(matrix_mul(matrix_a, matrix_b))
     [[7, 10], [15, 22]]
 
-2. ValueError - m_a not a rectangle:
+2. TypeError - m_a not a rectangle:
     >>> matrix_a = [
     ...	[1, 2, 3],
     ...	[3, 4]
@@ -31,9 +31,9 @@ Functional Cases:
     ... ]
     >>> print(matrix_mul(matrix_a, matrix_b))
     Traceback (most recent call last):
-    ValueError: each row of m_a must be of the same size
+    TypeError: each row of m_a must be of the same size
 
-3. ValueError - m_b not a rectangle:
+3. TypeError - m_b not a rectangle:
     >>> matrix_a = [
     ...	[1, 2],
     ...	[3, 4]
@@ -44,7 +44,7 @@ Functional Cases:
     ... ]
     >>> print(matrix_mul(matrix_a, matrix_b))
     Traceback (most recent call last):
-    ValueError: each row of m_b must be of the same size
+    TypeError: each row of m_b must be of the same size
 
 4. ValueError - m_a empty:
     >>> matrix_a = []
