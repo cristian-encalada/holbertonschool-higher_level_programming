@@ -147,3 +147,29 @@ Edge Cases:
     >>> print(matrix_mul([[1, 2], [3, 4]], hello))
     Traceback (most recent call last):
     NameError: name 'hello' is not defined
+
+13. TypeError - No arguments:
+    >>> matrix_a = [
+    ...	[1, 2],
+    ...	[3, 4]
+    ... ]
+    >>> matrix_b = [
+    ...	[1, 2],
+    ...	[3, 4]
+    ... ]
+    >>> print(matrix_mul())
+    Traceback (most recent call last):
+    TypeError: matrix_mul() missing 2 required positional arguments: 'm_a' and 'm_b'
+
+14. TypeError - more than 2 arguments:
+    >>> matrix_a = [
+    ...	[1, 2],
+    ...	[3, 4]
+    ... ]
+    >>> matrix_b = [
+    ...	[1, 2],
+    ...	[3, 4]
+    ... ]
+    >>> print(matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]], [[1, 2], [3, 4]]))
+    Traceback (most recent call last):
+    TypeError: matrix_mul() takes 2 positional arguments but 3 were given
