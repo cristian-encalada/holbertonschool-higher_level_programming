@@ -74,7 +74,7 @@ Functional Cases:
     ... ]
     >>> print(matrix_mul(matrix_a, matrix_b))
     Traceback (most recent call last):
-    TypeError: m_a must be lists of lists
+    TypeError: m_a must be a list of lists
 
 7. TypeError - m_b not a list of lists:
     >>> matrix_a = [
@@ -84,7 +84,7 @@ Functional Cases:
     >>> matrix_b = [{}]
     >>> print(matrix_mul(matrix_a, matrix_b))
     Traceback (most recent call last):
-    TypeError: m_b must be lists of lists
+    TypeError: m_b must be a list of lists
 
 8. TypeError - m_a contains a char:
     >>> matrix_a = [
