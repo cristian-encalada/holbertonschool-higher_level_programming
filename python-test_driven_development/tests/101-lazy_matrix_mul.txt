@@ -1,10 +1,10 @@
-The ''100-matrix_mul'' module
+The ''101-lazy_matrix_mul'' module
 ============================
 
-Using ''matrix_mul''
+Using ''lazy_matrix_mul''
 --------------------
 
-    >>> matrix_mul = __import__('100-matrix_mul').matrix_mul
+    >>> lazy_matrix_mul = __import__('101-lazy_matrix_mul').lazy_matrix_mul
 
 Functional Cases:
 ----------------
@@ -17,7 +17,7 @@ Functional Cases:
     ...	[1, 2],
     ...	[3, 4]
     ... ]
-    >>> print(matrix_mul(matrix_a, matrix_b))
+    >>> print(lazy_matrix_mul(matrix_a, matrix_b))
     [[7, 10], [15, 22]]
 
 2. TypeError - m_a not a rectangle:
@@ -29,11 +29,11 @@ Functional Cases:
     ...	[1, 2],
     ...	[3, 4]
     ... ]
-    >>> print(matrix_mul(matrix_a, matrix_b))
+    >>> print(lazy_matrix_mul(matrix_a, matrix_b))
     Traceback (most recent call last):
-    TypeError: each row of m_a must be of the same size
+    ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. The detected shape was (2,) + inhomogeneous part.
 
-3. TypeError - m_b not a rectangle:
+3. ValueError - m_b not a rectangle:
     >>> matrix_a = [
     ...	[1, 2],
     ...	[3, 4]
@@ -42,19 +42,19 @@ Functional Cases:
     ...	[1, 2, 3],
     ...	[3, 4]
     ... ]
-    >>> print(matrix_mul(matrix_a, matrix_b))
+    >>> print(lazy_matrix_mul(matrix_a, matrix_b))
     Traceback (most recent call last):
-    TypeError: each row of m_b must be of the same size
+    ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. The detected shape was (2,) + inhomogeneous part.
 
 4. ValueError - m_a empty:
     >>> matrix_a = []
     >>> matrix_b = [
-    ...	[1, 2, 3],
+    ...	[1, 2],
     ...	[3, 4]
     ... ]
-    >>> print(matrix_mul(matrix_a, matrix_b))
+    >>> print(lazy_matrix_mul(matrix_a, matrix_b))
     Traceback (most recent call last):
-    ValueError: m_a can't be empty
+    ValueError: shapes (0,) and (2,2) not aligned: 0 (dim 0) != 2 (dim 0)
 
 5. ValueError - m_b empty:
     >>> matrix_a = [
@@ -62,31 +62,31 @@ Functional Cases:
     ...	[3, 4]
     ... ]
     >>> matrix_b = []
-    >>> print(matrix_mul(matrix_a, matrix_b))
+    >>> print(lazy_matrix_mul(matrix_a, matrix_b))
     Traceback (most recent call last):
-    ValueError: m_b can't be empty
+    ValueError: shapes (2,2) and (0,) not aligned: 2 (dim 1) != 0 (dim 0)
 
-6. TypeError - m_a not a list of lists:
+6. ValueError - m_a not a list of lists:
     >>> matrix_a = [{}]
     >>> matrix_b = [
-    ...	[1, 2, 3],
+    ...	[1, 2],
     ...	[3, 4]
     ... ]
-    >>> print(matrix_mul(matrix_a, matrix_b))
+    >>> print(lazy_matrix_mul(matrix_a, matrix_b))
     Traceback (most recent call last):
-    TypeError: m_a must be a list of lists
+    ValueError: shapes (1,) and (2,2) not aligned: 1 (dim 0) != 2 (dim 0)
 
-7. TypeError - m_b not a list of lists:
+7. ValueError - m_b not a list of lists:
     >>> matrix_a = [
     ...	[1, 2],
     ...	[3, 4]
     ... ]
     >>> matrix_b = [{}]
-    >>> print(matrix_mul(matrix_a, matrix_b))
+    >>> print(lazy_matrix_mul(matrix_a, matrix_b))
     Traceback (most recent call last):
-    TypeError: m_b must be a list of lists
+    ValueError: shapes (2,2) and (1,) not aligned: 2 (dim 1) != 1 (dim 0)
 
-8. TypeError - m_a contains a char:
+8. ValueError - m_a contains a char:
     >>> matrix_a = [
     ...	[1, 2],
     ...	[3, 'x']
@@ -95,11 +95,11 @@ Functional Cases:
     ...	[1, 2],
     ...	[3, 4]
     ... ]
-    >>> print(matrix_mul(matrix_a, matrix_b))
+    >>> print(lazy_matrix_mul(matrix_a, matrix_b))
     Traceback (most recent call last):
-    TypeError: m_a should contain only integers or floats
+    ValueError: data type must provide an itemsize
 
-9. TypeError - m_b contains a char:
+9. ValueError - m_b contains a char:
     >>> matrix_a = [
     ...	[1, 2],
     ...	[3, 4]
@@ -108,9 +108,9 @@ Functional Cases:
     ...	[1, 2],
     ...	[3, 'x']
     ... ]
-    >>> print(matrix_mul(matrix_a, matrix_b))
+    >>> print(lazy_matrix_mul(matrix_a, matrix_b))
     Traceback (most recent call last):
-    TypeError: m_b should contain only integers or floats
+    ValueError: data type must provide an itemsize
 
 10. TypeError - m_a must be a list:
     >>> matrix_a = {}
@@ -118,9 +118,9 @@ Functional Cases:
     ...	[1, 2],
     ...	[3, 4]
     ... ]
-    >>> print(matrix_mul(matrix_a, matrix_b))
+    >>> print(lazy_matrix_mul(matrix_a, matrix_b))
     Traceback (most recent call last):
-    TypeError: m_a must be a list
+    TypeError: unsupported operand type(s) for *: 'dict' and 'int'
 
 11. TypeError - m_b must be a list:
     >>> matrix_a = [
@@ -128,9 +128,9 @@ Functional Cases:
     ...	[3, 4]
     ... ]
     >>> matrix_b = {}
-    >>> print(matrix_mul(matrix_a, matrix_b))
+    >>> print(lazy_matrix_mul(matrix_a, matrix_b))
     Traceback (most recent call last):
-    TypeError: m_b must be a list
+    TypeError: unsupported operand type(s) for *: 'int' and 'dict'
 
 12. Multipication by Infinity:
     >>> matrix_a = [
@@ -141,8 +141,8 @@ Functional Cases:
     ...	[1, 2],
     ...	[3, 4]
     ... ]
-    >>> print(matrix_mul(matrix_a, matrix_b))
-    [[7, 10], [inf, inf]]
+    >>> print(lazy_matrix_mul(matrix_a, matrix_b))
+    [[7., 10.], [inf, inf]], [[13, 16]]
 
 13. Multiply different sizes:
     >>> matrix_a = [
@@ -152,7 +152,7 @@ Functional Cases:
     ...	[3, 4],
     ...	[5, 6]
     ... ]
-    >>> print(matrix_mul(matrix_a, matrix_b))
+    >>> print(lazy_matrix_mul(matrix_a, matrix_b))
     [[13, 16]]
 
 Edge Cases:
@@ -167,7 +167,7 @@ Edge Cases:
     ...	[1, 2],
     ...	[3, 4]
     ... ]
-    >>> print(matrix_mul([[1, 2], [3, 4]], hello))
+    >>> print(lazy_matrix_mul([[1, 2], [3, 4]], hello))
     Traceback (most recent call last):
     NameError: name 'hello' is not defined
 
@@ -180,9 +180,9 @@ Edge Cases:
     ...	[1, 2],
     ...	[3, 4]
     ... ]
-    >>> print(matrix_mul())
+    >>> print(lazy_matrix_mul())
     Traceback (most recent call last):
-    TypeError: matrix_mul() missing 2 required positional arguments: 'm_a' and 'm_b'
+    TypeError: lazy_matrix_mul() missing 2 required positional arguments: 'm_a' and 'm_b'
 
 16. TypeError - more than 2 arguments:
     >>> matrix_a = [
@@ -193,9 +193,9 @@ Edge Cases:
     ...	[1, 2],
     ...	[3, 4]
     ... ]
-    >>> print(matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]], [[1, 2], [3, 4]]))
+    >>> print(lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]], [[1, 2], [3, 4]]))
     Traceback (most recent call last):
-    TypeError: matrix_mul() takes 2 positional arguments but 3 were given
+    TypeError: lazy_matrix_mul() takes 2 positional arguments but 3 were given
 
 17. ValueError - m_a and m_b can't be multiplied:
     >>> matrix_a = [
@@ -207,9 +207,9 @@ Edge Cases:
     ...	[4, 5, 6],
     ...	[7, 8, 9],
     ... ]
-    >>> print(matrix_mul(matrix_a, matrix_b))
+    >>> print(lazy_matrix_mul(matrix_a, matrix_b))
     Traceback (most recent call last):
-    ValueError: m_a and m_b can't be multiplied
+    ValueError: shapes (2,2) and (3,3) not aligned: 2 (dim 1) != 3 (dim 0)
 
 18. TypeError - missing m_b argument:
     >>> matrix_a = [
@@ -220,9 +220,9 @@ Edge Cases:
     ...	[1, 2],
     ...	[3, 4]
     ... ]
-    >>> print(matrix_mul(matrix_a,))
+    >>> print(lazy_matrix_mul(matrix_a,))
     Traceback (most recent call last):
-    TypeError: matrix_mul() missing 1 required positional argument: 'm_b'
+    TypeError: lazy_matrix_mul() missing 1 required positional argument: 'm_b'
 
 19. SyntaxError - missing m_a argument:
     >>> matrix_a = [
@@ -233,6 +233,6 @@ Edge Cases:
     ...	[1, 2],
     ...	[3, 4]
     ... ]
-    >>> print(matrix_mul(, matrix_b))
+    >>> print(lazy_matrix_mul(, matrix_b))
     Traceback (most recent call last):
     SyntaxError: invalid syntax
