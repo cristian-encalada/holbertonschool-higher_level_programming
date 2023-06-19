@@ -2,14 +2,12 @@
 """
 Task 7. Lazy multiplication
 """
+
+
 import numpy
 
 
 def lazy_matrix_mul(m_a, m_b):
+    """ Multiply 2 matrices using the module NumPy
     """
-    Multiply 2 matrices using the module NumPy
-    """
-
-    result = numpy.dot(m_a, m_b)
-
-    return result
+    return numpy.dot(m_a, m_b)
