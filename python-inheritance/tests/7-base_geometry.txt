@@ -113,3 +113,7 @@ Edge Cases:
     >>> bg.integer_validator("area", 0)
     Traceback (most recent call last):
     ValueError: area must be greater than 0
+
+18. name as empty string:
+
+    >>> bg.integer_validator("", 5)
