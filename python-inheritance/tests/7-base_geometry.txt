@@ -72,20 +72,44 @@ Edge Cases:
     Traceback (most recent call last):
     TypeError: integer_validator() takes 3 positional arguments but 4 were given
 
-11. Float as value:
+11. value Float:
 
     >>> bg.integer_validator("area", 12.5)
     Traceback (most recent call last):
     TypeError: area must be an integer
 
-12. Infinite as value:
+12. value Infinite:
 
     >>> bg.integer_validator("area", float('inf'))
     Traceback (most recent call last):
     TypeError: area must be an integer
 
-13. Boolean as value:
+13. value Boolean:
 
     >>> bg.integer_validator("area", False)
     Traceback (most recent call last):
     TypeError: area must be an integer
+
+14. value tuple:
+
+    >>> bg.integer_validator("area", (7, 8))
+    Traceback (most recent call last):
+    TypeError: area must be an integer
+
+15. value list:
+
+    >>> bg.integer_validator("area", [1, 2, 3])
+    Traceback (most recent call last):
+    TypeError: area must be an integer
+
+16. value set:
+
+    >>> bg.integer_validator("area", {1, 2, 3})
+    Traceback (most recent call last):
+    TypeError: area must be an integer
+
+17. value = 0:
+
+    >>> bg.integer_validator("area", 0)
+    Traceback (most recent call last):
+    ValueError: area must be greater than 0
