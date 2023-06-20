@@ -1,14 +1,14 @@
 The ''7-base_geometry.py'' module
 ============================
 
-Using ''print_sorted``
+Using ''integer_validator``
 --------------------
 
     >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 
 Functional Cases:
 ----------------
-1. Basic Case - Positive integers:
+1. Positive integers:
 
     >>> bg = BaseGeometry()
     >>> bg.integer_validator("my_int", 12)
@@ -32,18 +32,42 @@ Functional Cases:
     Traceback (most recent call last):
     ValueError: distance must be greater than 0
 
+5. area method:
+
+    >>> bg.area()
+    Traceback (most recent call last):
+    Exception: area() is not implemented
+
 
 Edge Cases:
 ----------
 
-5. No arguments:
+6. No arguments:
 
     >>> bg.integer_validator()
     Traceback (most recent call last):
     TypeError: BaseGeometry.integer_validator() missing 2 required positional arguments: 'name' and 'value'
 
-6. NameError:
+7. NameError:
 
     >>> bg.integer_validator(test)
     Traceback (most recent call last):
     NameError: name 'test' is not defined
+
+8. Missing value argument:
+
+    >>> bg.integer_validator("distance",)
+    Traceback (most recent call last):
+    TypeError: BaseGeometry.integer_validator() missing 1 required positional argument: 'value'
+
+9. Missing name argument:
+
+    >>> bg.integer_validator(, 5)
+    Traceback (most recent call last):
+    SyntaxError: invalid syntax
+
+10. More than 2 arguments:
+
+    >>> bg.integer_validator("distance", 5, 7)
+    Traceback (most recent call last):
+    TypeError: BaseGeometry.integer_validator() takes 3 positional arguments but 4 were given
