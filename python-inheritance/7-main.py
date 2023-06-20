@@ -50,3 +50,18 @@ try:
     bg.integer_validator("", 5)
 except Exception as e:
     print("[{}] {}".format(e.__class__.__name__, e))
+
+try:
+    bg.integer_validator("area", float('nan'))
+except Exception as e:
+    print("[{}] {}".format(e.__class__.__name__, e))
+
+try:
+    bg.integer_validator("area", float('test'))
+except Exception as e:
+    print("[{}] {}".format(e.__class__.__name__, e))
+
+try:
+    bg.integer_validator("area", None)
+except Exception as e:
+    print("[{}] {}".format(e.__class__.__name__, e))
