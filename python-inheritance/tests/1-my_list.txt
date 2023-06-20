@@ -48,7 +48,7 @@ Functional Cases:
     >>> print(my_list)
     [-1, -4, -2, -3, -5]
 
-4. Only Negative integers:
+4. Only one element in the list:
 
     >>> my_list = MyList()
     >>> my_list.append(7)
