@@ -6,8 +6,6 @@
 class BaseGeometry:
     """ Class BaseGeometry based on 6-base_geometry.py
     """
-    pass
-
     def area(self):
         """ Not implemented yet
         """
@@ -16,7 +14,7 @@ class BaseGeometry:
     def integer_validator(self, name, value):
         """ Validate value, assume <name> is always a string
         """
-        if type(value) != int:
-            raise TypeError("{} must be an integer".format(name))
+        if not isinstance(value, int):
+            raise TypeError(name + ' must be an integer')
         if value <= 0:
-            raise ValueError("{} must be greater than 0".format(name))
+            raise ValueError(name + ' must be greater than 0')
