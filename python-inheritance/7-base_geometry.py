@@ -1,19 +1,18 @@
 #!/usr/bin/python3
-"""Task 7. Integer validator
+""" Task 7. Integer validator
 """
 
 
 class BaseGeometry:
-    """Class BaseGeometry based on 6-base_geometry.py
+    """BaseGeometry class
     """
-
     def area(self):
-        """Not implemented yet
+        """Raise an Exception
         """
         raise Exception("area() is not implemented")
 
     def integer_validator(self, name, value):
-        """Validate value, assume name is always a string
+        """Validate value
         """
         if type(value) is not int:
             raise TypeError("{} must be an integer".format(name))
