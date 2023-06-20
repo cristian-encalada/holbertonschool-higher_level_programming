@@ -1,7 +1,7 @@
-The ``7-base_geometry`` module
+The ''7-base_geometry'' module
 ============================
 
-Using ``integer_validator``
+Using ''integer_validator''
 ---------------------
 
     >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
@@ -71,3 +71,21 @@ Edge Cases:
     >>> bg.integer_validator("distance", 5, 7)
     Traceback (most recent call last):
     TypeError: integer_validator() takes 3 positional arguments but 4 were given
+
+11. Float as value:
+
+    >>> bg.integer_validator("area", 12.5)
+    Traceback (most recent call last):
+    TypeError: area must be an integer
+
+12. Infinite as value:
+
+    >>> bg.integer_validator("area", float('inf'))
+    Traceback (most recent call last):
+    TypeError: area must be an integer
+
+13. Boolean as value:
+
+    >>> bg.integer_validator("area", False)
+    Traceback (most recent call last):
+    TypeError: area must be an integer

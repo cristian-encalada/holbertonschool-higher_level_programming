@@ -30,3 +30,18 @@ try:
     bg.area()
 except Exception as e:
     print("[{}] {}".format(e.__class__.__name__, e))
+
+try:
+    bg.integer_validator("area", 12.5)
+except Exception as e:
+    print("[{}] {}".format(e.__class__.__name__, e))
+
+try:
+    bg.integer_validator("area", float('inf'))
+except Exception as e:
+    print("[{}] {}".format(e.__class__.__name__, e))
+
+try:
+    bg.integer_validator("area", float('inf'))
+except Exception as e:
+    print("[{}] {}".format(e.__class__.__name__, e))
