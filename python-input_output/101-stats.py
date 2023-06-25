@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""Task 14. Log parsing
+"""
 import sys
 
 status_counts = {}  # Dictionary to store the counts for each status
