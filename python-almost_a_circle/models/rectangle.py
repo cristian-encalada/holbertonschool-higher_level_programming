@@ -120,7 +120,7 @@ class Rectangle(Base):
         print(rs, end='')
 
     def update(self, *args, **kwargs):
-        """Assigns key-value arguments attribute of the Rectangle instance"""
+        """Assigns key-value arguments to attributes of the Rectangle"""
         for key, value in kwargs.items():
             if key == 'id':
                 self.id = value
@@ -134,3 +134,12 @@ class Rectangle(Base):
                 self.y = value
             else:  # If *args exists and is not empty, skip **kwargs
                 pass
+
+    def to_dictionary(self):
+        """Returns the dictionary representation of a Rectangle"""
+        return {
+            'id': self.id,
+            'size': self.width,
+            'x': self.x,
+            'y': self.y
+        }
