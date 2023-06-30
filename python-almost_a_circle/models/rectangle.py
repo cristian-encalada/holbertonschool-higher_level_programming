@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Task 5. Display # 0"""
+"""Task 9. Update#1"""
 from models.base import Base
 
 
@@ -108,6 +108,7 @@ class Rectangle(Base):
             print(s)
 
     def __str__(self):
+        """Return a string representation of the Rectangle instance"""
         return "[Rectangle] ({}) {}/{} - {}/{}".format(
             self.id, self.x, self.y, self.width, self.height
         )
