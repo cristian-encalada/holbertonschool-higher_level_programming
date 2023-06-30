@@ -5,8 +5,9 @@ from models.base import Base
 
 
 class TestBase_Instantiation(unittest.TestCase):
-    "Unit tests for Base class"
+    """Unit tests for Base class"""
     def test_id_no_duplicates(self):
+        """ Verify that there are no duplicate values for id"""
         Base._Base__nb_objects = 0
         b1 = Base()
         b2 = Base()
