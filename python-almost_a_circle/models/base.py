@@ -38,3 +38,10 @@ class Base:
 
         with open(file_to_write, 'w') as file_to_write:
             file_to_write.write(to_write)
+
+    @staticmethod
+    def from_json_string(json_string):
+        """Return the list of JSON string representation"""
+        if json_string is None or len(json_string) == 0:
+            return []
+        return json.loads(json_string)
