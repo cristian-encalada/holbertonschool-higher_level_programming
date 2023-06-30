@@ -1,10 +1,13 @@
 #!/usr/bin/python3
-"""Task 4. Area first"""
+"""Task 5. Display # 0"""
 from models.base import Base
 
 
 class Rectangle(Base):
-    """Clas Rectangle that inherits from Base"""
+    """Class Rectangle that inherits from Base"""
+    number_of_instances = 0
+    print_symbol = '#'
+
     def __init__(self, width, height, x=0, y=0, id=None):
         """Class constructor"""
         super().__init__(id)
@@ -90,3 +93,16 @@ class Rectangle(Base):
     def area(self):
         """Return the area value of the Rectangle instance"""
         return self.__width * self.__height
+
+    def display(self):
+        """Print in stdout the Rectangle instance with the character #"""
+        s = ""
+        if self.__width == 0 or self.__height == 0:
+            print(s)
+        else:
+            for i in range(self.__height):
+                for j in range(self.__width):
+                    s += '#'
+                if i != self.__height - 1:
+                    s += '\n'
+            print(s)
