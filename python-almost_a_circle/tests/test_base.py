@@ -1,14 +1,13 @@
 #!/usr/bin/python3
-"""Unit tests for base.py"""
+"""Task 1"""
 import unittest
 from models.base import Base
 
 
 class TestBase_Instantiation(unittest.TestCase):
-    """Unit tests for Base class"""
+    """Unit tests for models/base.py"""
     def test_id_no_duplicates(self):
-        """ Verify that there are no duplicate values for id"""
-        Base._Base__nb_objects = 0
+        """Check no duplicated values for id"""
         b1 = Base()
         b2 = Base()
         b3 = Base()
