@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Task 1"""
+"""Unit tests for models/base.py"""
 import unittest
 from models.base import Base
 
