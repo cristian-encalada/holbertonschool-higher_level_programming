@@ -6,6 +6,7 @@ from models.base import Base
 
 class TestBase_Instantiation(unittest.TestCase):
     """Unit tests for models/base.py"""
+
     def test_id_no_duplicates(self):
         """Check no duplicated values for id"""
         b1 = Base()
@@ -18,7 +19,3 @@ class TestBase_Instantiation(unittest.TestCase):
         self.assertEqual(b3.id, 3)
         self.assertEqual(b4.id, 12)
         self.assertEqual(b5.id, 4)
-
-
-if __name__ == "__main__":
-    unittest.main()
