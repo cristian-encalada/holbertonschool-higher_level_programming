@@ -9,7 +9,7 @@ class Rectangle(Base):
     print_symbol = '#'
 
     def __init__(self, width, height, x=0, y=0, id=None):
-        """Class constructor"""
+        """Initialize a Rectangle instance"""
         super().__init__(id)
         if type(width) is not int:
             raise TypeError("width must be an integer")
@@ -95,7 +95,7 @@ class Rectangle(Base):
         return self.__width * self.__height
 
     def display(self):
-        """Print in stdout the Rectangle instance with the character #"""
+        """Prints in stdout the Rectangle instance with the character #"""
         s = ""
         if self.__width == 0 or self.__height == 0:
             print(s)
@@ -111,3 +111,9 @@ class Rectangle(Base):
         return "[Rectangle] ({}) {}/{} - {}/{}".format(
             self.id, self.x, self.y, self.width, self.height
         )
+
+    def display(self):
+        """Prints the Rectangle instance to stdout"""
+        rs = '\n' * self.__y
+        rs += (' ' * self.__x + '#' * self.__width + '\n') * self.__height
+        print(rs, end='')
