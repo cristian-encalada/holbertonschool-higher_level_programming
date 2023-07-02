@@ -1,6 +1,7 @@
 import unittest
 from models.square import Square
 from models.base import Base
+import pep8
 
 
 class TestSquare(unittest.TestCase):
@@ -114,6 +115,18 @@ class TestSquare(unittest.TestCase):
         square = Square(5, 2, 3, 4)
         expected_dict = {'id': 4, 'size': 5, 'x': 2, 'y': 3}
         self.assertEqual(square.to_dictionary(), expected_dict)
+
+    def test_pep8_square(self):
+        """Test PEP8 style for models/square.py"""
+        p8 = pep8.StyleGuide(quiet=True)
+        p = p8.check_files(['models/square.py'])
+        self.assertEqual(p.total_errors, 0, "Fix PEP8 issues in square.py")
+
+    def test_pep8_test_square(self):
+        """Test PEP8 style for tests/test_models/test_square.py"""
+        p8 = pep8.StyleGuide(quiet=True)
+        p = p8.check_files(['tests/test_models/test_square.py'])
+        self.assertEqual(p.total_errors, 0, "Fix PEP8 in test_square.py")
 
 
 if __name__ == '__main__':

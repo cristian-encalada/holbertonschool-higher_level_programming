@@ -3,6 +3,7 @@
 import unittest
 from models.base import Base
 from models.rectangle import Rectangle
+import pep8
 
 
 class TestRectangle(unittest.TestCase):
@@ -174,6 +175,18 @@ class TestRectangle(unittest.TestCase):
         self.assertEqual(r.width, 13)
         self.assertEqual(r.y, 9)
         self.assertEqual(r.x, 15)
+
+    def test_pep8_rect(self):
+        """Test PEP8 style for models/rectangle.py"""
+        p8 = pep8.StyleGuide(quiet=True)
+        p = p8.check_files(['models/rectangle.py'])
+        self.assertEqual(p.total_errors, 0, "Fix PEP8 issues in rectangle.py")
+
+    def test_pep8_test_rect(self):
+        """Test PEP8 style for tests/test_models/test_rectangle.py"""
+        p8 = pep8.StyleGuide(quiet=True)
+        p = p8.check_files(['tests/test_models/test_rectangle.py'])
+        self.assertEqual(p.total_errors, 0, "Fix PEP8 in test_rectangle.py")
 
 
 if __name__ == '__main__':

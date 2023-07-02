@@ -2,6 +2,7 @@
 """Unit tests for models/base.py class"""
 import unittest
 from models.base import Base
+import pep8
 
 
 class TestBaseInit(unittest.TestCase):
@@ -55,6 +56,18 @@ class TestBaseInit(unittest.TestCase):
         """Test initialization with id as tuple"""
         b = Base((8,))
         self.assertEqual((8,), b.id)
+
+    def test_pep8_model(self):
+        """Test PEP8 style for models/base.py"""
+        p8 = pep8.StyleGuide(quiet=True)
+        p = p8.check_files(['models/base.py'])
+        self.assertEqual(p.total_errors, 0, "Fix PEP8 issues in base.py")
+
+    def test_pep8_test(self):
+        """Test PEP8 style for tests/test_models/test_base.py"""
+        p8 = pep8.StyleGuide(quiet=True)
+        p = p8.check_files(['tests/test_models/test_base.py'])
+        self.assertEqual(p.total_errors, 0, "Fix PEP8 issues in test_base.py")
 
 
 if __name__ == '__main__':
