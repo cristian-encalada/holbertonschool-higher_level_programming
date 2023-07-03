@@ -4,6 +4,8 @@ import unittest
 from models.base import Base
 from models.rectangle import Rectangle
 import pep8
+import sys
+from io import StringIO
 
 
 class TestRectangleInit(unittest.TestCase):
@@ -162,7 +164,7 @@ class TestRectangleAttr(unittest.TestCase):
 
 
 class TestRectangleArea(unittest.TestCase):
-    """Unit tests for Area meathod of Rectangle"""
+    """Unit tests for Area method of Rectangle"""
 
     def test_area(self):
         """Test the area method of Rectangle"""
@@ -181,39 +183,91 @@ class TestRectangleArea(unittest.TestCase):
 
 
 class TestRectangleDisplay(unittest.TestCase):
-    """Unit tests for display meathod of Rectangle"""
+    """Unit tests for display method of Rectangle"""
+
+    def test_display(self):
+        """Test display method with two arguments"""
+        Base._Base__nb_objects = 0
+        r7 = Rectangle(4, 6)
+        old_stdout = sys.stdout
+        result = StringIO()
+        sys.stdout = result
+        r7.display()
+        sys.stdout = old_stdout
+        result_string = result.getvalue()
+        self.assertEqual(result_string,
+                         "####\n####\n####\n####\n####\n####\n")
+
+    def test_str(self):
+        """Test str method"""
+        Base._Base__nb_objects = 0
+        r8 = Rectangle(4, 6, 2, 1, 12)
+        r9 = Rectangle(5, 5, 1)
+        string1 = r8.__str__()
+        string2 = r9.__str__()
+        self.assertEqual(string1,
+                         "[Rectangle] (12) 2/1 - 4/6")
+        self.assertEqual(string2,
+                         "[Rectangle] (1) 1/0 - 5/5")
+
+    def test_display_xy(self):
+        """Test display method with four arguments"""
+        Base._Base__nb_objects = 0
+        r1 = Rectangle(2, 3, 2, 2)
+        old_stdout = sys.stdout
+        result = StringIO()
+        sys.stdout = result
+        r1.display()
+        sys.stdout = old_stdout
+        result_string = result.getvalue()
+        self.assertEqual(result_string, "\n\n  ##\n  ##\n  ##\n")
+        r2 = Rectangle(3, 2, 1, 0)
+        old_stdout = sys.stdout
+        result = StringIO()
+        sys.stdout = result
+        r2.display()
+        sys.stdout = old_stdout
+        result_string = result.getvalue()
+        self.assertEqual(result_string, " ###\n ###\n")
 
     def test_display_with_arg(self):
         """Test display method with an argument"""
         with self.assertRaises(TypeError):
             Rectangle(1, 2, 3, 4).display(2)
 
+
+class TestRectangleUpdate(unittest.TestCase):
+    """Unit tests for update method of Rectangle"""
+
     def test_update(self):
         """Test update method of Rectangle object"""
         r3 = Rectangle(10, 10, 10, 10)
-        self.assertEqual(str(r3), "[Rectangle] (26) 10/10 - 10/10")
-
+        self.assertEqual(str(r3), "[Rectangle] (2) 10/10 - 10/10")
         r3.update(height=1)
-        self.assertEqual(str(r3), "[Rectangle] (26) 10/10 - 10/1")
-
+        self.assertEqual(str(r3), "[Rectangle] (2) 10/10 - 10/1")
         r3.update(width=1, x=2)
-        self.assertEqual(str(r3), "[Rectangle] (26) 2/10 - 1/1")
-
+        self.assertEqual(str(r3), "[Rectangle] (2) 2/10 - 1/1")
         r3.update(y=1, width=2, x=3, id=89)
         self.assertEqual(str(r3), "[Rectangle] (89) 3/1 - 2/1")
-
         r3.update(x=1, height=2, y=3, width=4)
         self.assertEqual(str(r3), "[Rectangle] (89) 1/3 - 4/2")
 
-    def test_update_kw(self):
+    def test_update_kwargs(self):
         """Test the update method of Rectangle with keyword arguments"""
-        r = Rectangle(1, 1)
-        r.update(id=11, height=12, width=13, y=9, x=15)
-        self.assertEqual(r.id, 11)
-        self.assertEqual(r.height, 12)
-        self.assertEqual(r.width, 13)
-        self.assertEqual(r.y, 9)
-        self.assertEqual(r.x, 15)
+        Base._Base__nb_objects = 0
+        r1 = Rectangle(10, 10, 10, 10)
+        r1.update(height=1)
+        string = r1.__str__()
+        self.assertEqual(string, "[Rectangle] (1) 10/10 - 10/1")
+        r1.update(width=1, x=2)
+        string = r1.__str__()
+        self.assertEqual(string, "[Rectangle] (1) 2/10 - 1/1")
+        r1.update(y=1, width=2, x=3, id=89)
+        string = r1.__str__()
+        self.assertEqual(string, "[Rectangle] (89) 3/1 - 2/1")
+        r1.update(x=1, height=2, y=3, width=4)
+        string = r1.__str__()
+        self.assertEqual(string, "[Rectangle] (89) 1/3 - 4/2")
 
 
 class TestRectanglePEP8(unittest.TestCase):

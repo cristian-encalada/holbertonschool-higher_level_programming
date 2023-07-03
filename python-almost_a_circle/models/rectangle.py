@@ -95,29 +95,16 @@ class Rectangle(Base):
         return self.__width * self.__height
 
     def display(self):
-        """Prints in stdout the Rectangle instance with the character #"""
-        s = ""
-        if self.__width == 0 or self.__height == 0:
-            print(s)
-        else:
-            for i in range(self.__height):
-                for j in range(self.__width):
-                    s += '#'
-                if i != self.__height - 1:
-                    s += '\n'
-            print(s)
+        """Prints in stdout the Rectangle instance with # char """
+        rs = '\n' * self.__y
+        rs += (' ' * self.__x + '#' * self.__width + '\n') * self.__height
+        print(rs, end='')
 
     def __str__(self):
         """Return a string representation of the Rectangle instance"""
         return "[Rectangle] ({}) {}/{} - {}/{}".format(
             self.id, self.x, self.y, self.width, self.height
         )
-
-    def display(self):
-        """Prints in stdout the Rectangle instance with # char """
-        rs = '\n' * self.__y
-        rs += (' ' * self.__x + '#' * self.__width + '\n') * self.__height
-        print(rs, end='')
 
     def update(self, *args, **kwargs):
         """Assigns key-value arguments to attributes of the Rectangle"""
