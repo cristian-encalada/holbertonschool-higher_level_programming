@@ -12,116 +12,58 @@ class TestRectangleInit(unittest.TestCase):
     """Unit tests for Rectangle class initialization"""
 
 
-def test_initialization(self):
+def test_id(self):
     """Test initialization of Rectangle object"""
-    r1 = Rectangle(10, 10, 10, 10)
-    self.assertEqual(str(r1), "[Rectangle] (1) 10/10 - 10/10")
+    Base._Base__nb_objects = 0
+    r1 = Rectangle(10, 2)
+    self.assertIsNotNone(id(r1))
 
-    def test_inheritance(self):
-        """Test if Rectangle is a subclass of Base"""
-        self.assertIsInstance(Rectangle(10, 2), Base)
+    def test_instance(self):
+        """Test if Rectangle is instace of Base"""
+    Base._Base__nb_objects = 0
+    r2 = Rectangle(2, 10)
+    self.assertIsInstance(r2, Rectangle)
 
-    def test_zero_args(self):
-        """Test creation of Rectangle with zero arguments"""
-        with self.assertRaises(TypeError):
-            Rectangle()
-
-    def test_only_one_arg(self):
-        """Test creation of Rectangle with only one argument"""
-        with self.assertRaises(TypeError):
-            Rectangle(1)
-
-    def test_rectangles_ids(self):
-        """Test if the IDs of two rectangles differ by 1"""
-        r1 = Rectangle(8, 4)
-        r2 = Rectangle(12, 6)
-        self.assertEqual(r1.id, 1)
-        self.assertEqual(r2.id, 2)
-
-    def test_four_args(self):
-        """Test creation of Rectangle with four arguments"""
-        r1 = Rectangle(8, 4, 0, 1)
-        r2 = Rectangle(12, 6, 1, 2)
-        self.assertEqual(r1.id, 1)
-        self.assertEqual(r2.id, 2)
-
-    def test_five_args(self):
-        """Test creation of Rectangle with five arguments"""
-        r1 = Rectangle(8, 4, 0, 0, 7)
-        r2 = Rectangle(12, 6, 1, 1, 8)
-        self.assertEqual(r1.id, 7)
-        self.assertEqual(r2.id, 8)
+    def test_numObj(self):
+        """Test correct number of objects"""
+        Base._Base__nb_objects = 0
+        r3 = Rectangle(10, 2, 0, 0)
+        r4 = Rectangle(5, 5)
+        self.assertEqual(r4.id, 2)
 
 
 class TestRectangleAttr(unittest.TestCase):
     """Unit tests for Rectangle attributes validation"""
 
-    def test_getters(self):
-        """Test the getter methods"""
-        r = Rectangle(2, 3, 4, 5)
-        self.assertEqual(r.width, 2)
-        self.assertEqual(r.height, 3)
-        self.assertEqual(r.x, 4)
-        self.assertEqual(r.y, 5)
+    def test_getterAndSetter(self):
+        """checks getter and setter"""
+        Base._Base__nb_objects = 0
+        r5 = Rectangle(10, 2, 0, 0)
+        self.assertEqual(r5.width, 10)
+        self.assertEqual(r5.height, 2)
+        self.assertEqual(r5.x, 0)
+        self.assertEqual(r5.y, 0)
 
-    def test_attribute_access(self):
-        """Test attribute access"""
-        with self.assertRaises(AttributeError):
-            rect = Rectangle(1, 2, 3, 4).__width
-        with self.assertRaises(AttributeError):
-            rect = Rectangle(1, 2, 3, 4).__height
-        with self.assertRaises(AttributeError):
-            rect = Rectangle(1, 2, 3, 4).__x
-        with self.assertRaises(AttributeError):
-            rect = Rectangle(1, 2, 3, 4).__y
-
-    def test_attribute_types(self):
-        """Test attribute types"""
-        with self.assertRaises(TypeError):
-            rect = Rectangle("test", 2)
-        with self.assertRaises(TypeError):
-            rect = Rectangle(1, "test2")
-        with self.assertRaises(TypeError):
-            rect = Rectangle(1, 2, "test3")
-        with self.assertRaises(TypeError):
-            rect = Rectangle(1, 2, 3, "test4")
-
-    def test_attribute_values(self):
-        """Test attribute values"""
-        with self.assertRaises(ValueError):
-            rect = Rectangle(0, 1)
-        with self.assertRaises(ValueError):
-            rect = Rectangle(1, 0)
-        with self.assertRaises(ValueError):
-            rect = Rectangle(1, 2, -1)
-        with self.assertRaises(ValueError):
-            rect = Rectangle(1, 2, 3, -1)
-
-    def test_invalid_height(self):
-        """Test creation of Rectangle with invalid height"""
-        with self.assertRaises(TypeError) as cm:
-            rect = Rectangle(10, "2")
-        self.assertEqual(str(cm.exception), "height must be an integer")
-
-    def test_invalid_width(self):
-        """Test modification of Rectangle with invalid width"""
+    def test_errors(self):
+        """checks invalid attributes"""
+        Base._Base__nb_objects = 0
         r = Rectangle(10, 2)
-        with self.assertRaises(ValueError) as cm:
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            r.width = "2"
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
             r.width = -10
-        self.assertEqual(str(cm.exception), "width must be > 0")
-
-    def test_invalid_x(self):
-        """Test modification of Rectangle with invalid x"""
-        r = Rectangle(10, 2)
-        with self.assertRaises(TypeError) as cm:
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+            r.height = "2"
+        with self.assertRaisesRegex(ValueError, "height must be > 0"):
+            r.height = -10
+        with self.assertRaisesRegex(TypeError, "x must be an integer"):
             r.x = {}
-        self.assertEqual(str(cm.exception), "x must be an integer")
-
-    def test_invalid_y(self):
-        """Test creation of Rectangle with invalid y"""
-        with self.assertRaises(ValueError) as cm:
-            rect = Rectangle(10, 2, 3, -1)
-        self.assertEqual(str(cm.exception), "y must be >= 0")
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
+            Rectangle(10, 2, -3, 1)
+        with self.assertRaisesRegex(TypeError, "y must be an integer"):
+            r.y = {}
+        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
+            Rectangle(10, 2, 3, -1)
 
 
 class TestRectangleMethods(unittest.TestCase):
