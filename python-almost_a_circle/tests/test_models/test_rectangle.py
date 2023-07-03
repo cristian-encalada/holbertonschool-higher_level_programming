@@ -6,38 +6,14 @@ from models.rectangle import Rectangle
 import pep8
 
 
-class TestRectangle(unittest.TestCase):
-    """Unit tests for Rectangle class"""
+class TestRectangleInit(unittest.TestCase):
+    """Unit tests for Rectangle class initialization"""
 
 
 def test_initialization(self):
     """Test initialization of Rectangle object"""
     r1 = Rectangle(10, 10, 10, 10)
     self.assertEqual(str(r1), "[Rectangle] (1) 10/10 - 10/10")
-
-
-def test_update(self):
-    """Test update method of Rectangle object"""
-    r1 = Rectangle(10, 10, 10, 10)
-
-    r1.update(1, 2, 3, 4, 5)
-    self.assertEqual(str(r1), "[Rectangle] (1) 4/5 - 2/3")
-
-    r1.update(height=1)
-    self.assertEqual(str(r1), "[Rectangle] (1) 4/5 - 2/1")
-
-    r1.update(width=1, x=2)
-    self.assertEqual(str(r1), "[Rectangle] (1) 2/5 - 1/1")
-
-    r1.update(y=1, width=2, x=3, id=89)
-    self.assertEqual(str(r1), "[Rectangle] (89) 3/1 - 2/1")
-
-    r1.update(x=1, height=2, y=3, width=4)
-    self.assertEqual(str(r1), "[Rectangle] (89) 1/3 - 4/2")
-
-
-class TestRectangle(unittest.TestCase):
-    """Unit tests for the Rectangle class"""
 
     def test_inheritance(self):
         """Test if Rectangle is a subclass of Base"""
@@ -55,41 +31,48 @@ class TestRectangle(unittest.TestCase):
 
     def test_rectangles_ids(self):
         """Test if the IDs of two rectangles differ by 1"""
-        rect = Rectangle(8, 4)
-        angle = Rectangle(12, 6)
-        self.assertEqual(rect.id, angle.id - 1)
+        r1 = Rectangle(8, 4)
+        r2 = Rectangle(12, 6)
+        self.assertEqual(r1.id, 1)
+        self.assertEqual(r2.id, 2)
 
     def test_four_args(self):
         """Test creation of Rectangle with four arguments"""
-        rect = Rectangle(8, 4, 0, 1)
-        angle = Rectangle(12, 6, 1, 2)
-        self.assertEqual(rect.id, angle.id - 1)
+        r1 = Rectangle(8, 4, 0, 1)
+        r2 = Rectangle(12, 6, 1, 2)
+        self.assertEqual(r1.id, 1)
+        self.assertEqual(r2.id, 2)
 
     def test_five_args(self):
         """Test creation of Rectangle with five arguments"""
-        rect = Rectangle(8, 4, 0, 0, 7)
-        angle = Rectangle(12, 6, 1, 1, 8)
-        self.assertEqual(rect.id, 7)
+        r1 = Rectangle(8, 4, 0, 0, 7)
+        r2 = Rectangle(12, 6, 1, 1, 8)
+        self.assertEqual(r1.id, 7)
+        self.assertEqual(r2.id, 8)
+
+
+class TestRectangleAttr(unittest.TestCase):
+    """Unit tests for Rectangle attributes validation"""
 
     def test_width_getter(self):
         """Test the width getter method"""
-        rect = Rectangle(2, 2)
-        self.assertEqual(rect.width, 2)
+        r = Rectangle(2, 2)
+        self.assertEqual(r.width, 2)
 
     def test_height_getter(self):
         """Test the height getter method"""
-        rect = Rectangle(2, 3)
-        self.assertEqual(rect.height, 3)
+        r = Rectangle(2, 3)
+        self.assertEqual(r.height, 3)
 
     def test_x_getter(self):
         """Test the x getter method"""
-        rect = Rectangle(2, 2, 4)
-        self.assertEqual(rect.x, 4)
+        r = Rectangle(2, 2, 4)
+        self.assertEqual(r.x, 4)
 
     def test_y_getter(self):
         """Test the y getter method"""
-        rect = Rectangle(2, 2, 4, 5)
-        self.assertEqual(rect.y, 5)
+        r = Rectangle(2, 2, 4, 5)
+        self.assertEqual(r.y, 5)
 
     def test_width_access(self):
         """Test access to width attribute"""
@@ -114,22 +97,22 @@ class TestRectangle(unittest.TestCase):
     def test_width_not_int(self):
         """Test width not being an integer"""
         with self.assertRaises(TypeError):
-            rect = Rectangle("Jon", 2)
+            rect = Rectangle("test", 2)
 
     def test_height_not_int(self):
         """Test height not being an integer"""
         with self.assertRaises(TypeError):
-            rect = Rectangle(1, "Snow")
+            rect = Rectangle(1, "test2")
 
     def test_x_not_int(self):
         """Test x not being an integer"""
         with self.assertRaises(TypeError):
-            rect = Rectangle(1, 2, "Winterfell")
+            rect = Rectangle(1, 2, "test3")
 
     def test_y_not_int(self):
         """Test y not being an integer"""
         with self.assertRaises(TypeError):
-            rect = Rectangle(1, 2, 3, "RedWedding")
+            rect = Rectangle(1, 2, 3, "test4")
 
     def test_width_under_equal_0(self):
         """Test width being under or equal to 0"""
@@ -151,20 +134,76 @@ class TestRectangle(unittest.TestCase):
         with self.assertRaises(ValueError):
             rect = Rectangle(1, 2, 3, -1)
 
+    def test_invalid_height(self):
+        """Test creation of Rectangle with invalid height"""
+        with self.assertRaises(TypeError) as cm:
+            Rectangle(10, "2")
+        self.assertEqual(str(cm.exception), "height must be an integer")
+
+    def test_invalid_width(self):
+        """Test modification of Rectangle with invalid width"""
+        r = Rectangle(10, 2)
+        with self.assertRaises(ValueError) as cm:
+            r.width = -10
+        self.assertEqual(str(cm.exception), "width must be > 0")
+
+    def test_invalid_x(self):
+        """Test modification of Rectangle with invalid x"""
+        r = Rectangle(10, 2)
+        with self.assertRaises(TypeError) as cm:
+            r.x = {}
+        self.assertEqual(str(cm.exception), "x must be an integer")
+
+    def test_invalid_y(self):
+        """Test creation of Rectangle with invalid y"""
+        with self.assertRaises(ValueError) as cm:
+            Rectangle(10, 2, 3, -1)
+        self.assertEqual(str(cm.exception), "y must be >= 0")
+
+
+class TestRectangleArea(unittest.TestCase):
+    """Unit tests for Area meathod of Rectangle"""
+
     def test_area(self):
         """Test the area method of Rectangle"""
-        rect = Rectangle(10, 10)
-        self.assertEqual(rect.area(), 100)
+        r = Rectangle(10, 10)
+        self.assertEqual(r.area(), 100)
+
+    def test_area_five_args(self):
+        """Test the area method with five arguments"""
+        r = Rectangle(8, 7, 0, 0, 12)
+        self.assertEqual(r.area(), 56)
 
     def test_area_with_arg(self):
-        """Test area method with an argument"""
+        """Test area method with a wrong argument"""
         with self.assertRaises(TypeError):
             Rectangle(1, 2).area(42)
+
+
+class TestRectangleDisplay(unittest.TestCase):
+    """Unit tests for display meathod of Rectangle"""
 
     def test_display_with_arg(self):
         """Test display method with an argument"""
         with self.assertRaises(TypeError):
             Rectangle(1, 2, 3, 4).display(2)
+
+    def test_update(self):
+        """Test update method of Rectangle object"""
+        r3 = Rectangle(10, 10, 10, 10)
+        self.assertEqual(str(r3), "[Rectangle] (26) 10/10 - 10/10")
+
+        r3.update(height=1)
+        self.assertEqual(str(r3), "[Rectangle] (26) 10/10 - 10/1")
+
+        r3.update(width=1, x=2)
+        self.assertEqual(str(r3), "[Rectangle] (26) 2/10 - 1/1")
+
+        r3.update(y=1, width=2, x=3, id=89)
+        self.assertEqual(str(r3), "[Rectangle] (89) 3/1 - 2/1")
+
+        r3.update(x=1, height=2, y=3, width=4)
+        self.assertEqual(str(r3), "[Rectangle] (89) 1/3 - 4/2")
 
     def test_update_kw(self):
         """Test the update method of Rectangle with keyword arguments"""
@@ -175,6 +214,10 @@ class TestRectangle(unittest.TestCase):
         self.assertEqual(r.width, 13)
         self.assertEqual(r.y, 9)
         self.assertEqual(r.x, 15)
+
+
+class TestRectanglePEP8(unittest.TestCase):
+    """Unit tests for Rectangle class PEP8 style"""
 
     def test_pep8_rect(self):
         """Test PEP8 style for models/rectangle.py"""

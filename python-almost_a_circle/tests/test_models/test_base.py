@@ -5,8 +5,10 @@ from models.base import Base
 import pep8
 
 
-class TestBaseInit(unittest.TestCase):
+class TestBase(unittest.TestCase):
     """Unit tests for Base class initialization"""
+
+# Initialization tests
 
     def test_id_valid(self):
         """Test initialization with valid id"""
@@ -56,6 +58,10 @@ class TestBaseInit(unittest.TestCase):
         """Test initialization with id as tuple"""
         b = Base((8,))
         self.assertEqual((8,), b.id)
+
+
+class TestBasePEP8(unittest.TestCase):
+    """Unit tests for Base class PEP8 style"""
 
     def test_pep8_model(self):
         """Test PEP8 style for models/base.py"""

@@ -7,6 +7,8 @@ import pep8
 class TestSquare(unittest.TestCase):
     """Unit tests for the Square class"""
 
+# Initialization tests
+
     def test_inheritance(self):
         """Test if Square is a subclass of Base"""
         self.assertIsInstance(Square(10), Base)
@@ -115,6 +117,10 @@ class TestSquare(unittest.TestCase):
         square = Square(5, 2, 3, 4)
         expected_dict = {'id': 4, 'size': 5, 'x': 2, 'y': 3}
         self.assertEqual(square.to_dictionary(), expected_dict)
+
+
+class TestSquarePEP8(unittest.TestCase):
+    """Unit tests for Square class PEP8 style"""
 
     def test_pep8_square(self):
         """Test PEP8 style for models/square.py"""
