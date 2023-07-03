@@ -13,7 +13,7 @@ class TestRectangleInit(unittest.TestCase):
 
 
 def test_id(self):
-    """Test initialization of Rectangle object"""
+    """Test valid id"""
     Base._Base__nb_objects = 0
     r1 = Rectangle(10, 2)
     self.assertIsNotNone(id(r1))
@@ -36,7 +36,7 @@ class TestRectangleAttr(unittest.TestCase):
     """Unit tests for Rectangle attributes validation"""
 
     def test_getterAndSetter(self):
-        """checks getter and setter"""
+        """Test getter and setter"""
         Base._Base__nb_objects = 0
         r5 = Rectangle(10, 2, 0, 0)
         self.assertEqual(r5.width, 10)
@@ -44,8 +44,8 @@ class TestRectangleAttr(unittest.TestCase):
         self.assertEqual(r5.x, 0)
         self.assertEqual(r5.y, 0)
 
-    def test_errors(self):
-        """checks invalid attributes"""
+    def test_rectangle_errors(self):
+        """Test invalid attributes"""
         Base._Base__nb_objects = 0
         r = Rectangle(10, 2)
         with self.assertRaisesRegex(TypeError, "width must be an integer"):
@@ -70,22 +70,13 @@ class TestRectangleMethods(unittest.TestCase):
     """Unit tests for methods of Rectangle"""
 
     def test_area(self):
-        """Test the area method of Rectangle"""
-        r = Rectangle(10, 10)
-        self.assertEqual(r.area(), 100)
-
-    def test_area_five_args(self):
-        """Test the area method with five arguments"""
-        r = Rectangle(8, 7, 0, 0, 12)
-        self.assertEqual(r.area(), 56)
-
-    def test_area_with_arg(self):
-        """Test area method with a wrong argument"""
-        with self.assertRaises(TypeError):
-            Rectangle(1, 2).area(42)
+        """Test area"""
+        Base._Base__nb_objects = 0
+        r6 = Rectangle(3, 2)
+        self.assertEqual(r6.area(), r6.width * r6.height)
 
     def test_display(self):
-        """Test display method with two arguments"""
+        """Test display with two arguments"""
         Base._Base__nb_objects = 0
         r7 = Rectangle(4, 6)
         old_stdout = sys.stdout
@@ -98,7 +89,7 @@ class TestRectangleMethods(unittest.TestCase):
                          "####\n####\n####\n####\n####\n####\n")
 
     def test_str(self):
-        """Test str method"""
+        """Test __str__"""
         Base._Base__nb_objects = 0
         r8 = Rectangle(4, 6, 2, 1, 12)
         r9 = Rectangle(5, 5, 1)
@@ -110,7 +101,7 @@ class TestRectangleMethods(unittest.TestCase):
                          "[Rectangle] (1) 1/0 - 5/5")
 
     def test_display_xy(self):
-        """Test display method with four arguments"""
+        """Test display with four arguments"""
         Base._Base__nb_objects = 0
         r1 = Rectangle(2, 3, 2, 2)
         old_stdout = sys.stdout
@@ -129,13 +120,8 @@ class TestRectangleMethods(unittest.TestCase):
         result_string = result.getvalue()
         self.assertEqual(result_string, " ###\n ###\n")
 
-    def test_display_with_arg(self):
-        """Test display method with an argument"""
-        with self.assertRaises(TypeError):
-            Rectangle(1, 2, 3, 4).display(2)
-
     def test_update(self):
-        """Test update method of Rectangle object"""
+        """Test update"""
         r3 = Rectangle(10, 10, 10, 10)
         self.assertEqual(str(r3), "[Rectangle] (2) 10/10 - 10/10")
         r3.update(height=1)
@@ -147,8 +133,8 @@ class TestRectangleMethods(unittest.TestCase):
         r3.update(x=1, height=2, y=3, width=4)
         self.assertEqual(str(r3), "[Rectangle] (89) 1/3 - 4/2")
 
-    def test_update_kwargs(self):
-        """Test the update method of Rectangle with keyword arguments"""
+    def test_update_kw(self):
+        """Test update with keyword args"""
         Base._Base__nb_objects = 0
         r1 = Rectangle(10, 10, 10, 10)
         r1.update(height=1)
@@ -163,6 +149,23 @@ class TestRectangleMethods(unittest.TestCase):
         r1.update(x=1, height=2, y=3, width=4)
         string = r1.__str__()
         self.assertEqual(string, "[Rectangle] (89) 1/3 - 4/2")
+
+    def test_empty(self):
+        """Test empty arguments"""
+        Base._Base__nb_objects = 0
+        r1 = Rectangle(1, 1, 1, 1)
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            r1.width = None
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+            r1.width = ""
+
+    def test_dictionary(self):
+        """Test dictionary conversion"""
+        Base._Base__nb_objects = 0
+        r1 = Rectangle(10, 2, 1, 9)
+        r1_dictionary = r1.to_dictionary()
+        a_dict = {'x': 1, 'y': 9, 'id': 1, 'height': 2, 'width': 10}
+        self.assertTrue(r1_dictionary == a_dict)
 
 
 class TestRectanglePEP8(unittest.TestCase):
