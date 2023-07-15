@@ -1,5 +1,4 @@
 # Python - Test-driven development
-# Python - Classes and Objects
 
 ## Table of contents
    1. [Requirements](#requirements)
