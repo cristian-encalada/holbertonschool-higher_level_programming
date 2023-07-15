@@ -65,426 +65,762 @@ guillaume@ubuntu:~/$
 __No test cases needed__
 
 Files: 
-- [0-lookup.py](./0-lookup.py)
+- [0-read_file.py](./0-read_file.py)
 
-### 1. My list 
+### 1. Write to a file
 
-Write a class MyList that inherits from list:
+Write a function that writes a string to a text file (`UTF8`) and returns the number of characters written:
 
-- Public instance method: `def print_sorted(self):` that prints the list, but sorted (ascending sort)
-- You can assume that all the elements of the list will be of type `int`
+- Prototype: `def write_file(filename="", text=""):`
+- You must use the `with` statement
+- You don’t need to manage file permission exceptions.
+- Your function should create the file if doesn’t exist.
+- Your function should overwrite the content of the file if it already exists.
 - You are not allowed to import any module
 
 ```python
 guillaume@ubuntu:~/$ cat 1-main.py
 #!/usr/bin/python3
-MyList = __import__('1-my_list').MyList
+write_file = __import__('1-write_file').write_file
 
-my_list = MyList()
-my_list.append(1)
-my_list.append(4)
-my_list.append(2)
-my_list.append(3)
-my_list.append(5)
-print(my_list)
-my_list.print_sorted()
-print(my_list)
+nb_characters = write_file("my_first_file.txt", "This School is so cool!\n")
+print(nb_characters)
 
 guillaume@ubuntu:~/$ ./1-main.py
-[1, 4, 2, 3, 5]
-[1, 2, 3, 4, 5]
-[1, 4, 2, 3, 5]
+24
+guillaume@ubuntu:~/$ cat my_first_file.txt
+This School is so cool!
 guillaume@ubuntu:~/$ 
 ```
-__Note__: you might have a different number of tests than in the above example. As usual, your tests should cover all possible cases.
+__No test cases needed__
 
-Files: 
-- [1-my_list.py](./1-my_list.py)
-- [tests/1-my_list.txt](./tests/1-my_list.txt)
+File: [1-write_file.py](./1-write_file.py)
 
-### 2. Exact same object 
+### 2. Append to a file
 
-Write a function that returns `True` if the object is exactly an instance of the specified class ; otherwise `False`.
+Write a function that appends a string at the end of a text file (`UTF8`) and returns the number of characters added:
 
-- Prototype: `def is_same_class(obj, a_class):`
+- Prototype: `def append_write(filename="", text=""):`
+- If the file doesn’t exist, it should be created
+- You must use the `with` statement
+- You don’t need to manage `file permission` or `file doesn't exist` exceptions.
 - You are not allowed to import any module
 
 ```python
 guillaume@ubuntu:~/$ cat 2-main.py
 #!/usr/bin/python3
-is_same_class = __import__('2-is_same_class').is_same_class
+append_write = __import__('2-append_write').append_write
 
-a = 1
-if is_same_class(a, int):
-    print("{} is an instance of the class {}".format(a, int.__name__))
-if is_same_class(a, float):
-    print("{} is an instance of the class {}".format(a, float.__name__))
-if is_same_class(a, object):
-    print("{} is an instance of the class {}".format(a, object.__name__))
+nb_characters_added = append_write("file_append.txt", "This School is so cool!\n")
+print(nb_characters_added)
 
+guillaume@ubuntu:~/$ cat file_append.txt
+cat: file_append.txt: No such file or directory
 guillaume@ubuntu:~/$ ./2-main.py
-1 is an instance of the class int
+24
+guillaume@ubuntu:~/$ cat file_append.txt
+This School is so cool!
+guillaume@ubuntu:~/$ ./2-main.py
+24
+guillaume@ubuntu:~/$ cat file_append.txt
+This School is so cool!
+This School is so cool!
 guillaume@ubuntu:~/$ 
 ```
 __No test cases needed__
 
 Files: 
-- [2-is_same_class.py](./2-is_same_class.py)
+- [2-append_write.py](./2-append_write.py)
 
-### 3. Same class or inherit from 
+### 3. To JSON string 
 
-Write a function that returns `True` if the object is an instance of, or if the object is an instance of a class that inherited from, the specified class ; otherwise `False`.
+Write a function that returns the JSON representation of an object (string):
 
-- Prototype: `def is_kind_of_class(obj, a_class):`
-- You are not allowed to import any module
+- Prototype: `def to_json_string(my_obj):`
+- You don’t need to manage exceptions if the object can’t be serialized.
+
 
 ```python
 guillaume@ubuntu:~/$ cat 3-main.py
 #!/usr/bin/python3
-is_kind_of_class = __import__('3-is_kind_of_class').is_kind_of_class
+to_json_string = __import__('3-to_json_string').to_json_string
 
-a = 1
-if is_kind_of_class(a, int):
-    print("{} comes from {}".format(a, int.__name__))
-if is_kind_of_class(a, float):
-    print("{} comes from {}".format(a, float.__name__))
-if is_kind_of_class(a, object):
-    print("{} comes from {}".format(a, object.__name__))
+my_list = [1, 2, 3]
+s_my_list = to_json_string(my_list)
+print(s_my_list)
+print(type(s_my_list))
+
+my_dict = { 
+    'id': 12,
+    'name': "John",
+    'places': [ "San Francisco", "Tokyo" ],
+    'is_active': True,
+    'info': {
+        'age': 36,
+        'average': 3.14
+    }
+}
+s_my_dict = to_json_string(my_dict)
+print(s_my_dict)
+print(type(s_my_dict))
+
+try:
+    my_set = { 132, 3 }
+    s_my_set = to_json_string(my_set)
+    print(s_my_set)
+    print(type(s_my_set))
+except Exception as e:
+    print("[{}] {}".format(e.__class__.__name__, e))
 
 guillaume@ubuntu:~/$ ./3-main.py
-1 comes from int
-1 comes from object
+[1, 2, 3]
+<class 'str'>
+{"id": 12, "is_active": true, "name": "John", "info": {"average": 3.14, "age": 36}, "places": ["San Francisco", "Tokyo"]}
+<class 'str'>
+[TypeError] {3, 132} is not JSON serializable
 guillaume@ubuntu:~/$ 
 ```
 __No test cases needed__
 
 Files: 
-- [3-is_kind_of_class.py](./3-is_kind_of_class.py)
+- [3-to_json_string.py](./3-to_json_string.py)
 
-### 4. Only sub class of 
+### 4. From JSON string to Object
 
-Write a function that returns `True` if the object is an instance of a class that inherited (directly or indirectly) from the specified class ; otherwise `False`.
+Write a function that returns an object (Python data structure) represented by a JSON string:
 
-- Prototype: `def inherits_from(obj, a_class):`
-- You are not allowed to import any module
+- Prototype: `def from_json_string(my_str):`
+- You don’t need to manage exceptions if the JSON string doesn’t represent an object.
 
 ```python
 guillaume@ubuntu:~/$ cat 4-main.py
 #!/usr/bin/python3
-inherits_from = __import__('4-inherits_from').inherits_from
+from_json_string = __import__('4-from_json_string').from_json_string
 
-a = True
-if inherits_from(a, int):
-    print("{} inherited from class {}".format(a, int.__name__))
-if inherits_from(a, bool):
-    print("{} inherited from class {}".format(a, bool.__name__))
-if inherits_from(a, object):
-    print("{} inherited from class {}".format(a, object.__name__))
+s_my_list = "[1, 2, 3]"
+my_list = from_json_string(s_my_list)
+print(my_list)
+print(type(my_list))
+
+s_my_dict = """
+{"is_active": true, "info": {"age": 36, "average": 3.14}, 
+"id": 12, "name": "John", "places": ["San Francisco", "Tokyo"]}
+"""
+my_dict = from_json_string(s_my_dict)
+print(my_dict)
+print(type(my_dict))
+
+try:
+    s_my_dict = """
+    {"is_active": true, 12 }
+    """
+    my_dict = from_json_string(s_my_dict)
+    print(my_dict)
+    print(type(my_dict))
+except Exception as e:
+    print("[{}] {}".format(e.__class__.__name__, e))
 
 guillaume@ubuntu:~/$ ./4-main.py
-True inherited from class int
-True inherited from class object
+[1, 2, 3]
+<class 'list'>
+{'id': 12, 'is_active': True, 'name': 'John', 'info': {'age': 36, 'average': 3.14}, 'places': ['San Francisco', 'Tokyo']}
+<class 'dict'>
+[JSONDecodeError] Expecting property name enclosed in double quotes: line 2 column 25 (char 25)
 guillaume@ubuntu:~/$ 
 ```
 __No test cases needed__
 
 Files: 
-- [4-inherits_from.py](./4-inherits_from.py)
+- [4-from_json_string.py](./4-from_json_string.py)
 
-### 5. Geometry module 
+### 5. Save Object to a file
 
-Write an empty class BaseGeometry.
+Write a function that writes an Object to a text file, using a JSON representation:
 
-- You are not allowed to import any module
+- Prototype: `def save_to_json_file(my_obj, filename):`
+- You must use the `with` statement
+- You don’t need to manage exceptions if the object can’t be serialized.
+- You don’t need to manage file permission exceptions.
 
 ```python
 guillaume@ubuntu:~/$ cat 5-main.py
 #!/usr/bin/python3
-BaseGeometry = __import__('5-base_geometry').BaseGeometry
+save_to_json_file = __import__('5-save_to_json_file').save_to_json_file
 
-bg = BaseGeometry()
+filename = "my_list.json"
+my_list = [1, 2, 3]
+save_to_json_file(my_list, filename)
 
-print(bg)
-print(dir(bg))
-print(dir(BaseGeometry))
+filename = "my_dict.json"
+my_dict = { 
+    'id': 12,
+    'name': "John",
+    'places': [ "San Francisco", "Tokyo" ],
+    'is_active': True,
+    'info': {
+        'age': 36,
+        'average': 3.14
+    }
+}
+save_to_json_file(my_dict, filename)
+
+try:
+    filename = "my_set.json"
+    my_set = { 132, 3 }
+    save_to_json_file(my_set, filename)
+except Exception as e:
+    print("[{}] {}".format(e.__class__.__name__, e))
 
 guillaume@ubuntu:~/$ ./5-main.py
-<5-base_geometry.BaseGeometry object at 0x7f2050c69208>
-['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__']
-['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__']
+[TypeError] Object of type set is not JSON serializable
+guillaume@ubuntu:~/$ cat my_list.json ; echo ""
+[1, 2, 3]
+guillaume@ubuntu:~/$ cat my_dict.json ; echo ""
+{"name": "John", "places": ["San Francisco", "Tokyo"], "id": 12, "info": {"average": 3.14, "age": 36}, "is_active": true}
+guillaume@ubuntu:~/$ cat my_set.json ; echo ""
+
 guillaume@ubuntu:~/$ 
 ```
 __No test cases needed__
 
-File: [5-base_geometry.py](./5-base_geometry.py)
+File: [5-save_to_json_file.py](./5-save_to_json_file.py)
 
-### 6. Improve Geometry 
+### 6. Create object from a JSON file 
 
-Write a class `BaseGeometry` (based on `5-base_geometry.py`).
+Write a function that creates an Object from a “JSON file”:
 
-- Public instance method: `def area(self):` that raises an `Exception` with the message `area() is not implemented`
-- You are not allowed to import any module
+- Prototype: `def load_from_json_file(filename):`
+- You must use the `with` statement
+- You don’t need to manage exceptions if the JSON string doesn’t represent an object.
+- You don’t need to manage file permissions / exceptions.
 
 ```python
+guillaume@ubuntu:~/$ cat my_fake.json
+{"is_active": true, 12 }
 guillaume@ubuntu:~/$ cat 6-main.py
 #!/usr/bin/python3
-BaseGeometry = __import__('6-base_geometry').BaseGeometry
+load_from_json_file = __import__('6-load_from_json_file').load_from_json_file
 
-bg = BaseGeometry()
+filename = "my_list.json"
+my_list = load_from_json_file(filename)
+print(my_list)
+print(type(my_list))
+
+filename = "my_dict.json"
+my_dict = load_from_json_file(filename)
+print(my_dict)
+print(type(my_dict))
 
 try:
-    print(bg.area())
+    filename = "my_set_doesnt_exist.json"
+    my_set = load_from_json_file(filename)
+    print(my_set)
+    print(type(my_set))
 except Exception as e:
     print("[{}] {}".format(e.__class__.__name__, e))
 
+try:
+    filename = "my_fake.json"
+    my_fake = load_from_json_file(filename)
+    print(my_fake)
+    print(type(my_fake))
+except Exception as e:
+    print("[{}] {}".format(e.__class__.__name__, e))
+
+guillaume@ubuntu:~/$ cat my_list.json ; echo ""
+[1, 2, 3]
+guillaume@ubuntu:~/$ cat my_dict.json ; echo ""
+{"name": "John", "places": ["San Francisco", "Tokyo"], "id": 12, "info": {"average": 3.14, "age": 36}, "is_active": true}
+guillaume@ubuntu:~/$ cat my_fake.json ; echo ""
+{"is_active": true, 12 }
 guillaume@ubuntu:~/$ ./6-main.py
-[Exception] area() is not implemented
+[1, 2, 3]
+<class 'list'>
+{'name': 'John', 'info': {'age': 36, 'average': 3.14}, 'id': 12, 'places': ['San Francisco', 'Tokyo'], 'is_active': True}
+<class 'dict'>
+[FileNotFoundError] [Errno 2] No such file or directory: 'my_set_doesnt_exist.json'
+[ValueError] Expecting property name enclosed in double quotes: line 1 column 21 (char 20)
 guillaume@ubuntu:~/$ 
 ```
 __No test cases needed__
 
-File: [6-base_geometry.py](./6-base_geometry.py)
+File: [6-load_from_json_file.py](./6-load_from_json_file.py)
 
-### 7. Integer validator 
+### 7. Load, add, save
 
-Write a class `BaseGeometry` (based on `6-base_geometry.py`).
+Write a script that adds all arguments to a Python list, and then save them to a file:
 
-- Public instance method: `def area(self):` that raises an `Exception` with the message `area() is not implemented`
-- Public instance method: `def integer_validator(self, name, value):` that validates `value:`
-    - you can assume `name` is always a string
-    - if `value` is not an integer: raise a `TypeError` exception, with the message `<name> must be an integer`
-    - if `value` is less or equal to 0: raise a `ValueError` exception with the message `<name> must be greater than 0`
+- You must use your function `save_to_json_file` from `5-save_to_json_file.py`
+- You must use your function `load_from_json_file` from `6-load_from_json_file.py`
+- The list must be saved as a JSON representation in a file named add_item.json
+- If the file doesn’t exist, it should be created
+- You don’t need to manage file permissions / exceptions.
+
+```python
+guillaume@ubuntu:~/$ cat add_item.json
+cat: add_item.json: No such file or directory
+guillaume@ubuntu:~/$ ./7-add_item.py
+guillaume@ubuntu:~/$ cat add_item.json ; echo ""
+[]
+guillaume@ubuntu:~/$ ./7-add_item.py Best School
+guillaume@ubuntu:~/$ cat add_item.json ; echo ""
+["Best", "School"]
+guillaume@ubuntu:~/$ ./7-add_item.py 89 Python C
+guillaume@ubuntu:~/$ cat add_item.json ; echo ""
+["Best", "School", "89", "Python", "C"]
+guillaume@ubuntu:~/$ 
+```
+
+File: [7-add_item.py](./7-add_item.py)
+
+### 8. Class to JSON
+
+Write a function that returns the dictionary description with simple data structure (list, dictionary, string, integer and boolean) for JSON serialization of an object:
+
+- Prototype: `def class_to_json(obj):`
+- `obj` is an instance of a Class
+- All attributes of the `obj` Class are serializable: list, dictionary, string, integer and boolean
 - You are not allowed to import any module
 
 ```python
-guillaume@ubuntu:~/$ cat 7-main.py
+guillaume@ubuntu:~/$ cat 8-my_class.py 
 #!/usr/bin/python3
-BaseGeometry = __import__('7-base_geometry').BaseGeometry
+""" My class module
+"""
 
-bg = BaseGeometry()
+class MyClass:
+    """ My class
+    """
 
-bg.integer_validator("my_int", 12)
-bg.integer_validator("width", 89)
+    def __init__(self, name):
+        self.name = name
+        self.number = 0
 
-try:
-    bg.integer_validator("name", "John")
-except Exception as e:
-    print("[{}] {}".format(e.__class__.__name__, e))
+    def __str__(self):
+        return "[MyClass] {} - {:d}".format(self.name, self.number)
 
-try:
-    bg.integer_validator("age", 0)
-except Exception as e:
-    print("[{}] {}".format(e.__class__.__name__, e))
+guillaume@ubuntu:~/$ cat 8-main.py 
+#!/usr/bin/python3
+MyClass = __import__('8-my_class').MyClass
+class_to_json = __import__('8-class_to_json').class_to_json
 
-try:
-    bg.integer_validator("distance", -4)
-except Exception as e:
-    print("[{}] {}".format(e.__class__.__name__, e))
+m = MyClass("John")
+m.number = 89
+print(type(m))
+print(m)
 
-guillaume@ubuntu:~/$ ./7-main.py
-[TypeError] name must be an integer
-[ValueError] age must be greater than 0
-[ValueError] distance must be greater than 0
+mj = class_to_json(m)
+print(type(mj))
+print(mj)
+
+guillaume@ubuntu:~/$ ./8-main.py 
+<class '8-my_class.MyClass'>
+[MyClass] John - 89
+<class 'dict'>
+{'name': 'John', 'number': 89}
 guillaume@ubuntu:~/$ 
+guillaume@ubuntu:~/$ cat 8-my_class_2.py 
+#!/usr/bin/python3
+""" My class module
+"""
+
+class MyClass:
+    """ My class
+    """
+
+    score = 0
+
+    def __init__(self, name, number = 4):
+        self.__name = name
+        self.number = number
+        self.is_team_red = (self.number % 2) == 0
+
+    def win(self):
+        self.score += 1
+
+    def lose(self):
+        self.score -= 1
+
+    def __str__(self):
+        return "[MyClass] {} - {:d} => {:d}".format(self.__name, self.number, self.score)
+
+guillaume@ubuntu:~/$ cat 8-main_2.py 
+#!/usr/bin/python3
+MyClass = __import__('8-my_class_2').MyClass
+class_to_json = __import__('8-class_to_json').class_to_json
+
+m = MyClass("John")
+m.win()
+print(type(m))
+print(m)
+
+mj = class_to_json(m)
+print(type(mj))
+print(mj)
+
+guillaume@ubuntu:~/$ ./8-main_2.py 
+<class '8-my_class_2.MyClass'>
+[MyClass] John - 4 => 1
+<class 'dict'>
+{'number': 4, '_MyClass__name': 'John', 'is_team_red': True, 'score': 1}
+guillaume@ubuntu:~/$
 ```
+__No test cases needed__
 
-Files: 
-* [7-base_geometry.py](./7-base_geometry.py)
-* [tests/7-base_geometry.txt](./tests/7-base_geometry.txt)
+File: [8-class_to_json.py](./8-class_to_json.py)
 
-### 8. Rectangle
+### 9. Student to JSON
 
-Write a class Rectangle that inherits from BaseGeometry (7-base_geometry.py).
+Write a class `Student` that defines a student by:
 
-- Instantiation with `width` and `height`: `def __init__(self, width, height):`
-    - `width` and `height` must be private. No getter or setter
-    - `width` and `height` must be positive integers, validated by `integer_validator`
+- Public instance attributes:
+    - `first_name`
+    - `last_name`
+    - `age`
+- Instantiation with `first_name`, `last_name` and `age`: `def __init__(self, first_name, last_name, age):`
+- Public method `def to_json(self):` that retrieves a dictionary representation of a `Student` instance (same as `8-class_to_json.py`)
+- You are not allowed to import any module
 
 ```python
-guillaume@ubuntu:~/$ cat 8-main.py
+guillaume@ubuntu:~/$ cat 9-main.py 
 #!/usr/bin/python3
-Rectangle = __import__('8-rectangle').Rectangle
+Student = __import__('9-student').Student
 
-r = Rectangle(3, 5)
+students = [Student("John", "Doe", 23), Student("Bob", "Dylan", 27)]
 
-print(r)
-print(dir(r))
+for student in students:
+    j_student = student.to_json()
+    print(type(j_student))
+    print(j_student['first_name'])
+    print(type(j_student['first_name']))
+    print(j_student['age'])
+    print(type(j_student['age']))
 
-try:
-    print("Rectangle: {} - {}".format(r.width, r.height))
-except Exception as e:
-    print("[{}] {}".format(e.__class__.__name__, e))
-
-try:
-    r2 = Rectangle(4, True)
-except Exception as e:
-    print("[{}] {}".format(e.__class__.__name__, e))
-
-guillaume@ubuntu:~/$ ./8-main.py
-<8-rectangle.Rectangle object at 0x7f6f488f7eb8>
-['_Rectangle__height', '_Rectangle__width', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'area', 'integer_validator']
-[AttributeError] 'Rectangle' object has no attribute 'width'
-[TypeError] height must be an integer
+guillaume@ubuntu:~/$ ./9-main.py 
+<class 'dict'>
+John
+<class 'str'>
+23
+<class 'int'>
+<class 'dict'>
+Bob
+<class 'str'>
+27
+<class 'int'>
 guillaume@ubuntu:~/$ 
 ```
 __No test cases needed__
 
-File: [8-rectangle.py](./8-rectangle.py)
+File: [9-student.py](./9-student.py)
 
-### 9. Full rectangle
+### 10. Student to JSON with filter 
 
-Write a class `Rectangle` that inherits from `BaseGeometry` (`7-base_geometry.py`). (task based on `8-rectangle.py`)
+Write a class `Student` that defines a student by: (based on `9-student.py`)
 
-- Instantiation with `width` and `height`: `def __init__(self, width, height)::`
-    - `width` and `height` must be private. No getter or setter
-    - `width` and `height` must be positive integers validated by `integer_validator`
-- the `area()` method must be implemented
-- `print()` should print, and `str()` should return, the following rectangle description: `[Rectangle] <width>/<height>`
-
-```python
-guillaume@ubuntu:~/$ cat 9-main.py
-#!/usr/bin/python3
-Rectangle = __import__('9-rectangle').Rectangle
-
-r = Rectangle(3, 5)
-
-print(r)
-print(r.area())
-
-guillaume@ubuntu:~/$ ./9-main.py
-[Rectangle] 3/5
-15
-guillaume@ubuntu:~/$ 
-```
-__No test cases needed__
-
-File: [9-rectangle.py](./9-rectangle.py)
-
-###  10. Square #1 
-
-Write a class `Square` that inherits from `Rectangle` (`9-rectangle.py`):
-
-- Instantiation with size: `def __init__(self, size):`:
-    - `size` must be private. No getter or setter
-    - `size` must be a positive integer, validated by `integer_validator`
-- the `area()` method must be implemented
+- Public instance attributes:
+    - `first_name`
+    - `last_name`
+    - `age`
+- Instantiation with `first_name`, `last_name` and `age`: `def __init__(self, first_name, last_name, age):`
+- Public method `def to_json(self):` that retrieves a dictionary representation of a `Student` instance (same as `8-class_to_json.py`)
+    - If `attrs` is a list of strings, only attribute names contained in this list must be retrieved.
+    - Otherwise, all attributes must be retrieved
+- You are not allowed to import any module
 
 ```python
-guillaume@ubuntu:~/$ cat 10-main.py
+guillaume@ubuntu:~/$ cat 10-main.py 
 #!/usr/bin/python3
-Square = __import__('10-square').Square
+Student = __import__('10-student').Student
 
-s = Square(13)
+student_1 = Student("John", "Doe", 23)
+student_2 = Student("Bob", "Dylan", 27)
 
-print(s)
-print(s.area())
+j_student_1 = student_1.to_json()
+j_student_2 = student_2.to_json(['first_name', 'age'])
+j_student_3 = student_2.to_json(['middle_name', 'age'])
 
-guillaume@ubuntu:~/$ ./10-main.py
-[Rectangle] 13/13
-169
-guillaume@ubuntu:~/$ 
+print(j_student_1)
+print(j_student_2)
+print(j_student_3)
+
+guillaume@ubuntu:~/$ ./10-main.py 
+{'age': 23, 'last_name': 'Doe', 'first_name': 'John'}
+{'age': 27, 'first_name': 'Bob'}
+{'age': 27}
+guillaume@ubuntu:~/$
 ```
 __No test cases needed__
 
 File: [10-square.py](./10-square.py)
 
-###  11. Square #2
+### 11. Student to disk and reload 
 
-Write a class `Square` that inherits from `Rectangle` (`9-rectangle.py`)  (task based on `10-square.py`).:
+Write a class `Student` that defines a student by: (based on `10-student.py`)
 
-- Instantiation with size: `def __init__(self, size):`:
-    - `size` must be private. No getter or setter
-    - `size` must be a positive integer, validated by `integer_validator`
-- the `area()` method must be implemented
-- `print()` should print, and `str()` should return, the square description: `[Square] <width>/<height>`
+- Public instance attributes:
+    - `first_name`
+    - `last_name`
+    - `age`
+- Instantiation with `first_name`, `last_name` and `age`: `def __init__(self, first_name, last_name, age):`
+- Public method `def to_json(self):` that retrieves a dictionary representation of a `Student` instance (same as `8-class_to_json.py`)
+    - If `attrs` is a list of strings, only attribute names contained in this list must be retrieved.
+    - Otherwise, all attributes must be retrieved
+- Public method `def reload_from_json(self, json):` that replaces all attributes of the `Student` instance:
+    - You can assume json will always be a dictionary
+    - A dictionary key will be the public attribute name
+    - A dictionary value will be the value of the public attribute
+- You are not allowed to import any module
+
+Now, you have a simple implementation of a serialization and deserialization mechanism (concept of representation of an object to another format, without losing any information and allow us to rebuild an object based on this representation)
 
 ```python
-guillaume@ubuntu:~/$ cat 11-main.py
+guillaume@ubuntu:~/$ cat 11-main.py 
 #!/usr/bin/python3
-Square = __import__('11-square').Square
+import os
+import sys
 
-s = Square(13)
+Student = __import__('11-student').Student
+read_file = __import__('0-read_file').read_file
+save_to_json_file = __import__('5-save_to_json_file').save_to_json_file
+load_from_json_file = __import__('6-load_from_json_file').load_from_json_file
 
-print(s)
-print(s.area())
+path = sys.argv[1]
 
-guillaume@ubuntu:~/$ ./11-main.py
-[Square] 13/13
-169
+if os.path.exists(path):
+    os.remove(path)
+
+student_1 = Student("John", "Doe", 23)
+j_student_1 = student_1.to_json()
+print("Initial student:")
+print(student_1)
+print(type(student_1))
+print(type(j_student_1))
+print("{} {} {}".format(student_1.first_name, student_1.last_name, student_1.age))
+
+
+save_to_json_file(j_student_1, path)
+read_file(path)
+print("\nSaved to disk")
+
+
+print("Fake student:")
+new_student_1 = Student("Fake", "Fake", 89)
+print(new_student_1)
+print(type(new_student_1))
+print("{} {} {}".format(new_student_1.first_name, new_student_1.last_name, new_student_1.age))
+
+
+print("Load dictionary from file:")
+new_j_student_1 = load_from_json_file(path)
+
+new_student_1.reload_from_json(j_student_1)
+print(new_student_1)
+print(type(new_student_1))
+print("{} {} {}".format(new_student_1.first_name, new_student_1.last_name, new_student_1.age))
+
+guillaume@ubuntu:~/$ ./11-main.py student.json
+Initial student:
+<11-student.Student object at 0x7f832826eda0>
+<class '11-student.Student'>
+<class 'dict'>
+John Doe 23
+{"last_name": "Doe", "first_name": "John", "age": 23}
+Saved to disk
+Fake student:
+<11-student.Student object at 0x7f832826edd8>
+<class '11-student.Student'>
+Fake Fake 89
+Load dictionary from file:
+<11-student.Student object at 0x7f832826edd8>
+<class '11-student.Student'>
+John Doe 23
+guillaume@ubuntu:~/$ cat student.json ; echo ""
+{"last_name": "Doe", "first_name": "John", "age": 23}
 guillaume@ubuntu:~/$ 
 ```
 __No test cases needed__
 
-File: [11-square.py](./11-square.py)
+File: [11-student.py](./11-student.py)
+
+### 12. Pascal's Triangle  
+
+__Technical interview preparation:__
+
+- You are not allowed to google anything
+- Whiteboard first
+
+Create a function `def pascal_triangle(n):` that returns a list of lists of integers representing the Pascal’s triangle of n:
+
+- Returns an empty list if `n <= 0`
+- You can assume `n` will be always an integer
+- You are not allowed to import any module
+
+```python
+guillaume@ubuntu:~/$ cat 12-main.py
+#!/usr/bin/python3
+"""
+12-main
+"""
+pascal_triangle = __import__('12-pascal_triangle').pascal_triangle
+
+def print_triangle(triangle):
+    """
+    Print the triangle
+    """
+    for row in triangle:
+        print("[{}]".format(",".join([str(x) for x in row])))
+
+
+if __name__ == "__main__":
+    print_triangle(pascal_triangle(5))
+
+guillaume@ubuntu:~/$ 
+guillaume@ubuntu:~/$ ./12-main.py
+[1]
+[1,1]
+[1,2,1]
+[1,3,3,1]
+[1,4,6,4,1]
+guillaume@ubuntu:~/$ 
+```
+__No test cases needed__
+
+File: [12-pascal_triangle.py](./12-pascal_triangle.py)
+
 
 ## Advanced Tasks
 
-### 12. My integer 
+### 13. Search and update
 
-Write a class `MyInt` that inherits from int:
+Write a function that inserts a line of text to a file, after each line containing a specific string (see example):
 
-- `MyInt` is a rebel. `MyInt` has `==` and `!=` operators inverted
+- Prototype: `def append_after(filename="", search_string="", new_string=""):`
+- You must use the `with` statement
+- You don’t need to manage `file permission` or `file doesn't exist` exceptions.
 - You are not allowed to import any module
 
 ```python
 guillaume@ubuntu:~/$ cat 100-main.py
 #!/usr/bin/python3
-MyInt = __import__('100-my_int').MyInt
+append_after = __import__('100-append_after').append_after
 
-my_i = MyInt(3)
-print(my_i)
-print(my_i == 3)
-print(my_i != 3)
+append_after("append_after_100.txt", "Python", "\"C is fun!\"\n")
 
+guillaume@ubuntu:~/$ cat append_after_100.txt
+At School,
+Python is really important,
+But it can be very hard if:
+- You don't get all Pythonic tricks
+- You don't have strong C knowledge.
 guillaume@ubuntu:~/$ ./100-main.py
-3
-False
-True
+guillaume@ubuntu:~/$ cat append_after_100.txt
+At School,
+Python is really important,
+"C is fun!"
+But it can be very hard if:
+- You don't get all Pythonic tricks
+"C is fun!"
+- You don't have strong C knowledge.
+guillaume@ubuntu:~/$ ./100-main.py
+guillaume@ubuntu:~/$ cat append_after_100.txt
+At School,
+Python is really important,
+"C is fun!"
+"C is fun!"
+But it can be very hard if:
+- You don't get all Pythonic tricks
+"C is fun!"
+"C is fun!"
+- You don't have strong C knowledge.
 guillaume@ubuntu:~/$ 
 ```
 __No test cases needed__
 
 File: 
-- [100-my_int.py](./100-my_int.py)
+- [100-append_after.py](./100-append_after.py)
 
+### 14. Log parsing 
 
-### 13. Can I? 
+Write a script that reads `stdin` line by line and computes metrics:
 
-Write a function that adds a new attribute to an object if it’s possible:
-
-- Raise a `TypeError` exception, with the message `can't add new attribute` if the object can’t have new attribute
-- You are not allowed to use `try/except`
-- You are not allowed to import any module
+- Input format: `<IP Address> - [<date>] "GET /projects/260 HTTP/1.1" <status code> <file size>`
+- Each 10 lines and after a keyboard interruption (`CTRL + C`), prints those statistics since the beginning:
+    - Total file size: `File size: <total size>`
+    - where is the sum of all previous (see input format above)
+    - Number of lines by status code:
+        - possible status code: `200, 301, 400, 401, 403, 404, 405 and 500`
+        - if a status code doesn’t appear, don’t print anything for this status code
+        - format: `<status code>: <number>`
+        - status codes should be printed in ascending order
 
 ```python
-guillaume@ubuntu:~/$ cat 101-main.py
+guillaume@ubuntu:~/$ cat 101-generator.py
 #!/usr/bin/python3
-add_attribute = __import__('101-add_attribute').add_attribute
+import random
+import sys
+from time import sleep
+import datetime
 
-class MyClass():
-    pass
+for i in range(10000):
+    sleep(random.random())
+    sys.stdout.write("{:d}.{:d}.{:d}.{:d} - [{}] \"GET /projects/260 HTTP/1.1\" {} {}\n".format(
+        random.randint(1, 255), random.randint(1, 255), random.randint(1, 255), random.randint(1, 255),
+        datetime.datetime.now(),
+        random.choice([200, 301, 400, 401, 403, 404, 405, 500]),
+        random.randint(1, 1024)
+    ))
+    sys.stdout.flush()
 
-mc = MyClass()
-add_attribute(mc, "name", "John")
-print(mc.name)
-
-try:
-    a = "My String"
-    add_attribute(a, "name", "Bob")
-    print(a.name)
-except Exception as e:
-    print("[{}] {}".format(e.__class__.__name__, e))
-
-guillaume@ubuntu:~/$ ./101-main.py
-John
-[TypeError] can't add new attribute
+guillaume@ubuntu:~/$ ./101-generator.py | ./101-stats.py 
+File size: 5213
+200: 2
+401: 1
+403: 2
+404: 1
+405: 1
+500: 3
+File size: 11320
+200: 3
+301: 2
+400: 1
+401: 2
+403: 3
+404: 4
+405: 2
+500: 3
+File size: 16305
+200: 3
+301: 3
+400: 4
+401: 2
+403: 5
+404: 5
+405: 4
+500: 4
+^CFile size: 17146
+200: 4
+301: 3
+400: 4
+401: 2
+403: 6
+404: 6
+405: 4
+500: 4
+Traceback (most recent call last):
+  File "./101-stats.py", line 15, in <module>
+Traceback (most recent call last):
+  File "./101-generator.py", line 8, in <module>
+    for line in sys.stdin:
+KeyboardInterrupt
+    sleep(random.random())
+KeyboardInterrupt
 guillaume@ubuntu:~/$ 
 ```
 
 __No test cases needed__
 
 File: 
-- [101-add_attribute.py](./101-add_attribute.py)
+- [101-stats.py](./101-stats.py)
 
 ## Author
 
