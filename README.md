@@ -34,14 +34,15 @@
 
 ### Networking basics
 
-- [13. Networking basics #0](../holbertonschool-network/)
-- [14. Web Infrastructure Design](../holbertonschool-system_engineering-devops/)
-- [15. [Python - Team Project] - AirBnB Clone - The Console](../holbertonschool-AirBnB_clone/)
+- [13. Networking basics #0](https://github.com/cristian-encalada/holbertonschool-network)
+- [14. Web Infrastructure Design](https://github.com/cristian-encalada/holbertonschool-system_engineering-devops)
+- [15. [Python - Team Project] - AirBnB Clone - The Console](https://github.com/cristian-encalada/holbertonschool-AirBnB_clone)
 
 ### Front-End Fundamentals
 
-- [16. Advanced HTML](../holbertonschool-web_front_end/html_advanced/)
-- [17. Advanced CSS](../holbertonschool-web_front_end/CSS_advanced/)
+- [16. Advanced HTML](https://github.com/cristian-encalada/holbertonschool-web_front_end)
+- [17. Advanced CSS](https://github.com/cristian-encalada/holbertonschool-web_front_end)
+- [18. AirBnB Clone - Web Static](https://github.com/cristian-encalada/holbertonschool-AirBnB_clone/tree/main/web_static)
 
 
 ## Author
