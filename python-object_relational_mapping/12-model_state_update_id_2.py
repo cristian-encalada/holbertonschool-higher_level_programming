@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Script that adds the State object Louisiana to the database hbtn_0e_6_usa
+"""Script that changes the name of a State object
 """
 from model_state import Base, State
 from sys import argv
@@ -14,11 +14,8 @@ if __name__ == "__main__":
     Session = sessionmaker(engine)
     session = Session()
 
-    state = State(name='Louisiana')
+    state = session.query(State).filter(State.id == 2).first()
+    state.name = 'New Mexico'
 
-    session.add(state)
     session.commit()
-
-    print(state.id)
-
     session.close()
