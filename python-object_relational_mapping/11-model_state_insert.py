@@ -14,18 +14,11 @@ if __name__ == "__main__":
     Session = sessionmaker(engine)
     session = Session()
 
-    states = (
-        session.query(State)
-        .filter(State.name.like(argv[4]))
-        .order_by(State.id).all()
-    )
+    state = State(name='Louisiana')
 
-    found = False
-    for state in states:
-        print(f'{state.id}')
-        found = True
+    session.add(state)
+    session.commit()
 
-    if not found:
-        print("Not found")
+    print(state.id)
 
     session.close()
