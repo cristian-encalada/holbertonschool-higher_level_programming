@@ -22,7 +22,7 @@ if __name__ == "__main__":
 
     found = False
     for state in states:
-        print(f'{state.id}: {state.name}')
+        print(f'{state.id}')
         found = True
 
     if not found:
