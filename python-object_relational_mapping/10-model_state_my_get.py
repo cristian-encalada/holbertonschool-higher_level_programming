@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     states = (
         session.query(State)
-        .filter(State.name.ilike(f'%{argv[4]}%'))
+        .filter(State.name.like(f'%{argv[4]}%'))
         .order_by(State.id).all()
     )
 
