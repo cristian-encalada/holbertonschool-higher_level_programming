@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Script that lists all State objects that contain the letter a
+"""Script that prints the State object with the name passed as argument
 """
 from model_state import Base, State
 from sys import argv
@@ -15,10 +15,15 @@ if __name__ == "__main__":
     session = Session()
 
     states = (
-        session.query(State).filter(State.name.like('%a%')).order_by(State.id)
+        session.query(State)
+        .filter(State.name.ilike(f'%{argv[4]}%'))
+        .order_by(State.id).all()
     )
 
+    found = False
     for state in states:
         print(f'{state.id}: {state.name}')
+        found = True
 
-    session.close()
+    if not found:
+        print("Not found")
