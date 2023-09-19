@@ -11,8 +11,8 @@ $(document).ready(function () {
     // Make a GET request to the HelloSalut API
     $.get(`https://hellosalut.stefanbohacek.dev/?lang=${languageCode}`, function (data) {
       // Ensure that any special characters are properly decodified
-      const decodified = $('<div></div>').html(data.hello).text();
-      $('#hello').text(decodified);
+      const decoded = $('<div></div>').html(data.hello).text();
+      $('#hello').text(decoded);
     });
   });
 });
