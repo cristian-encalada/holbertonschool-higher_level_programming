@@ -10,8 +10,9 @@ $(document).ready(function () {
     const languageCode = $('#language_code').val();
     // Make a GET request to the HelloSalut API
     $.get(`https://hellosalut.stefanbohacek.dev/?lang=${languageCode}`, function (data) {
-      // Update the content of the #hello div with the translation
-      $('#hello').text(data.hello);
+      // Ensure that any special characters are properly decodified
+      const decodified = $('<div></div>').html(data.hello).text();
+      $('#hello').text(decodified);
     });
   });
 });
